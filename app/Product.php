@@ -17,9 +17,7 @@ class Product extends Model
         'category_id',
         'variant_id',
         'unit_id',
-        'stock_in',
-        'stock_out',
-        'stock',
+        'stock_id',
         'cost_price',
         'sales_price',
         'is_active',
@@ -36,5 +34,9 @@ class Product extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo('App\Unit', 'unit_id');
+    }
+    public function stock(): BelongsTo
+    {
+        return $this->belongsTo('App\Stock', 'stock_id');
     }
 }

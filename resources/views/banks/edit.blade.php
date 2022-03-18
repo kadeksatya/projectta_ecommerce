@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-5">
                     <label for="">Photo</label>
-                    <input type="file" name="photo" class="dropify" data-default-url="img/{{$bank->photo}}" />
+                    <input type="file" name="photo" class="dropify" data-default-file="{{asset('img')}}/{{$bank->photo}}" />
                 </div>
             </div>
 

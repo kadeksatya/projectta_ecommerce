@@ -41,6 +41,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('product', 'Admin\ProductController');
     Route::resource('customer', 'Admin\CustomerController');
     Route::resource('sales', 'Admin\SalesController');
+    Route::resource('stock', 'Admin\StockController');
+    Route::get('/stock/{id}/detail', 'Admin\StockController@show');
     Route::resource('/user', 'Admin\UserController');
 
 });

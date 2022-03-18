@@ -22,6 +22,7 @@ class Product extends Migration
             $table->integer('category_id')->nullable();
             $table->integer('variant_id')->nullable();
             $table->integer('unit_id')->nullable();
+            $table->integer('stock_id')->nullable();
             $table->integer('cost_price')->nullable();
             $table->integer('sales_price')->nullable();
             $table->boolean('is_active')->default(0);

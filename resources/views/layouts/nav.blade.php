@@ -63,7 +63,7 @@
                         <a href="{{route('product.create')}}">Tambah Product</a>
                     </li>
                     <li>
-                        <a href="{{route('product.create')}}">Stock</a>
+                        <a href="{{route('stock.index')}}">Stock</a>
                     </li>
                 </ul>
             </li>

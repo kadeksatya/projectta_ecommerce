@@ -25,8 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['sales'] = Transaction::where('transaction_type', 'SALES')->where('status', 3)->sum('grand_total');
-        $data['buyer'] = Transaction::where('transaction_type', 'BUYER')->where('status', 3)->sum('grand_total');
+        $data['sales'] = Transaction::sum('grand_total');
         $data['product'] = Product::all()->count();
         return view('dashboard.index', $data);
     }

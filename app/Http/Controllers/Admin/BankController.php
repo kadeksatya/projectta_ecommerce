@@ -64,9 +64,9 @@ class BankController extends Controller
 
             }
 
-            if (Banks::where('bankname', $request->bankname)->exists()) {
+            if (Banks::where('name', $request->bankname)->exists()) {
                 return redirect()->back()
-                             ->with('error', 'bankname sudah digunakan.');
+                             ->with('error', 'bank name sudah digunakan.');
             }
             else{
                 $data = [
@@ -113,8 +113,7 @@ class BankController extends Controller
      */
     public function edit($id)
     {
-        $data['bank'] = Banks::all();
-        dd($data['bank']);
+        $data['bank'] = Banks::find($id);
         return view('banks.edit', $data);
 
     }
