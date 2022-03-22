@@ -6,6 +6,7 @@ use App\Category;
 use App\Product;
 use App\Http\Controllers\Controller;
 use App\Unit;
+use App\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Image;
@@ -55,7 +56,8 @@ class ProductController extends Controller
 
         ]);
 
-        try { 
+        try {
+
 
             $name = rand(1, 99999) . now()->format('Y-m-d-H-i-s');
 
@@ -78,7 +80,7 @@ class ProductController extends Controller
 
             $data = [
                 'name' => $request->name,
-                'photo' => $new_name ?? null,
+                'photo' => asset('img').'/'.$new_name ?? '',
                 'category_id' => $request->category_id,
                 'unit_id' => $request->unit_id,
                 'cost_price' => $request->cost_price,
@@ -87,7 +89,20 @@ class ProductController extends Controller
                 'remark' => $request->remark,
             ];
 
-            Product::create($data);
+
+
+
+           $product = Product::create($data);
+
+
+            for ($i=0; $i < count($request->variant); $i++) {
+                $data =[
+                    'product_id' => $product->id,
+                    'name' => $request->variant[$i]
+                ];
+
+                Variant::create($data);
+            }
 
             DB::commit();
 
@@ -124,7 +139,10 @@ class ProductController extends Controller
     {
         $data['category'] = Category::all();
         $data['unit'] = Unit::all();
+        $data['variant'] = Variant::where('product_id', $id)->get();
         $data['product'] = Product::with(['category','unit'])->find($id);
+
+        // dd( $data['variant']);
         return view('product.edit', $data);
     }
 
@@ -168,7 +186,7 @@ class ProductController extends Controller
 
             $data = [
                 'name' => $request->name,
-                'photo' => $image_hidden,
+                'photo' => asset('img').'/'.$image_hidden,
                 'category_id' => $request->category_id,
                 'unit_id' => $request->unit_id,
                 'cost_price' => $request->cost_price,
@@ -178,6 +196,17 @@ class ProductController extends Controller
             ];
 
             Product::where('id', $id)->update($data);
+
+            Variant::where('product_id', $id)->delete();
+
+            for ($i=0; $i < count($request->variant); $i++) {
+                $data =[
+                    'product_id' => $id,
+                    'name' => $request->variant[$i]
+                ];
+
+                Variant::create($data);
+            }
 
             DB::commit();
 

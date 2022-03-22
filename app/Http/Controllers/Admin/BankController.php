@@ -71,7 +71,7 @@ class BankController extends Controller
             else{
                 $data = [
                     'name' => $request->name,
-                    'photo' => $new_name,
+                    'photo' => asset('img').'/'.$new_name,
                     'no_rek' => $request->no_rek,
                 ];
 

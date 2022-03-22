@@ -71,7 +71,7 @@ class CustomerController extends Controller
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
                 'address' => $request->address,
-                'photo' => $new_name ?? null,
+                'photo' => asset('img').'/'.$new_name ?? null,
                 'email' => $request->email,
             );
 
@@ -154,7 +154,7 @@ class CustomerController extends Controller
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
                 'address' => $request->address,
-                'photo' => $image_hidden,
+                'photo' => asset('img').'/'.$image_hidden,
                 'email' => $request->email,
             ];
 

@@ -28,7 +28,7 @@
             <div class="header">
                 <div class="logo logo-dark">
                     <a href="{{route('home')}}" style="padding-top:21px">
-                        <h5 class="logo-full">CV. Cahaya Cinta Kasih</h5>
+                        <h5 class="logo-full">BLOOMINGFIELDS BALI</h5>
                     </a>
                 </div>
                 <div class="logo logo-white">
@@ -65,7 +65,7 @@
                                             <i class="anticon anticon-user" style="color:#53535f"></i>
                                         </div>
                                         <div class="m-l-10">
-                                            <p class="m-b-0 text-dark font-weight-semibold">{{auth()->user()->name}}</p>
+                                            <p class="m-b-0 text-dark font-weight-semibold">{{auth('web')->user()->name}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -117,17 +117,17 @@
 
 
     @include('layouts.link_js')
-    
+
     <script>
         $(document).ready(function () {
             $('.datepicker-input').datepicker({
                 format: 'yyyy-m-d'
             });
-            
+
             $('.logout-btn').click(function(){
                 $("#form-logout").submit();
             })
- 
+
             // Drofify
 
         // Delete Localstorage

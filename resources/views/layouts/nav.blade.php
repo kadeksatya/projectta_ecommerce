@@ -31,9 +31,6 @@
                         <a href="{{route('category.index')}}">Kategori</a>
                     </li>
                     <li>
-                        <a href="{{route('variant.index')}}">Varian</a>
-                    </li>
-                    <li>
                         <a href="{{route('ongkir.index')}}">Ongkir</a>
                     </li>
                     <li>

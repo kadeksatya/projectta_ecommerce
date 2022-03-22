@@ -16,11 +16,11 @@
 
     <style>
         .imgs{
-            position: absolute; 
-            left: 0; 
-            right: 0; 
-            margin-left: auto; 
-            margin-right: auto; 
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
             width: 100px;
         }
     </style>
@@ -41,9 +41,9 @@
                         <div class="col-md-7 col-lg-5 m-h-auto">
                             <div class="card shadow-lg">
                                 <div class="card-body">
-                                    <center><img src="{{asset('logo.png')}}" alt="" srcset="" class="img-thumbnail rounded-circle mb-3" width="50%"></center>
+                                    <center><img src="{{asset('image/logo.png')}}" alt="" srcset="" class="img-thumbnail mb-3" width="50%"></center>
                                     <div class="align-items-center justify-content-between m-b-30">
-                                        <center><h4>CV. CAHAYA CINTA KASIH</h4></center>
+                                        <center><h4>BLOOMINGFIELDS BALI</h4></center>
                                     </div>
                                     @if ($message = Session::get('gagal'))
                                     <div class="alert alert-danger alert-dismissible show fade">

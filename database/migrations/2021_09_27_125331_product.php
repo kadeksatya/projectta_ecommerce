@@ -20,13 +20,14 @@ class Product extends Migration
             $table->string('name')->nullable();
             $table->string('photo')->nullable();
             $table->integer('category_id')->nullable();
-            $table->integer('variant_id')->nullable();
             $table->integer('unit_id')->nullable();
             $table->integer('stock_id')->nullable();
             $table->integer('cost_price')->nullable();
             $table->integer('sales_price')->nullable();
             $table->boolean('is_active')->default(0);
+            $table->boolean('is_feature')->default(0);
             $table->longText('remark')->nullable();
+            $table->integer('views')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

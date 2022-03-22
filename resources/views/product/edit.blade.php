@@ -6,7 +6,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h4>Tambah Data Produk</h4>
+        <h4>Edit Data Produk</h4>
         <form method="POST" action="{{route('product.update', $product->id)}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @method('PUT')
@@ -14,15 +14,18 @@
                 <div class="col-md-7">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name" value="{{$product->name}}" placeholder="eg. ani">
-                        <input type="hidden" class="form-control" name="imagehidden" value="{{$product->photo}}" placeholder="eg. ani">
+                        <input type="text" class="form-control" name="name" value="{{$product->name}}"
+                            placeholder="eg. ani">
+                        <input type="hidden" class="form-control" name="imagehidden" value="{{$product->photo}}"
+                            placeholder="eg. ani">
                     </div>
                     <div class="form-group">
                         <label>Kategori</label>
                         <select name="category_id" id="" class="form-control">
                             <option value="" selected disabled>Pilih 1</option>
                             @foreach ($category as $i)
-                                <option value="{{$i->id}}" {{$product->category_id == $i->id ? 'selected' : ''}}>{{$i->name}}</option>
+                            <option value="{{$i->id}}" {{$product->category_id == $i->id ? 'selected' : ''}}>
+                                {{$i->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -31,7 +34,8 @@
                         <select name="unit_id" id="" class="form-control">
                             <option value="" selected disabled>Pilih 1</option>
                             @foreach ($unit as $i)
-                                <option value="{{$i->id}}" {{$product->unit_id == $i->id ? 'selected' : ''}}>{{$i->name}}</option>
+                            <option value="{{$i->id}}" {{$product->unit_id == $i->id ? 'selected' : ''}}>{{$i->name}}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -45,13 +49,40 @@
                     </div>
                     <div class="form-group">
                         <label>Remark.</label>
-                        <textarea name="remark" id="" cols="30" rows="5" class="form-control">{{$product->remark}}</textarea>
+                        <textarea name="remark" id="" cols="30" rows="5"
+                            class="form-control">{{$product->remark}}</textarea>
                     </div>
 
                 </div>
                 <div class="col-md-5">
                     <label for="">Photo</label>
-                    <input type="file" name="photo" class="dropify" data-default-url="img/{{$product->photo}}" />
+                    <input type="file" name="photo" class="dropify" data-default-url="{{$product->photo}}" />
+                </div>
+
+                <div class="col-md-12">
+                    <hr>
+                    <button class='add btn btn-success ml-2' type="button"><i class="fa fa-plus"></i> Tambah
+                        Varian</button>
+
+                    <div class="boxer row form-inline">
+
+                        @php
+                        $num = 0;
+                        @endphp
+
+                        @foreach ($variant as $item)
+
+
+
+                        <div class='element form-group col-md-7 m-2 p-2' id='div_{{$item->id}}'>
+                            <input type='text' class='form-control inputs' name='variant[]' value="{{$item->name}}"
+                                placeholder='Masukkan nama variant' id='txt_{{$item->id}}'>
+                            <button id='remove_{{$item->id}}' type="button" class='remove btn btn-danger ml-2'><i
+                                    class='fa fa-trash'></i> Hapus Data</button>
+                        </div>
+                        @endforeach
+
+                    </div>
                 </div>
             </div>
 
@@ -64,11 +95,63 @@
 @endsection
 
 @push('script')
-    <script>
-        $(document).ready(function () {
-            if ($('input.isactive').is(':checked')) {
-                alert("1");
+<script>
+    $(document).ready(function () {
+
+        // Add new element
+        $(".add").click(function () {
+
+            // Finding total number of elements added
+            var total_element = $(".element").length;
+
+            // last <div> with element class id
+            var lastid = $(".element:last").attr("id");
+            var split_id = lastid.split("_");
+            var nextindex = Number(split_id[1]) + 1;
+
+            var max = 5;
+            // Check total number elements
+            if (total_element < max) {
+                // Adding new div container after last occurance of element class
+                $(".element:last").after("<div class='element form-group col-md-7 m-2 p-2' id='div_" +
+                    nextindex + "'></div>");
+
+                // Adding element to <div>
+                $("#div_" + nextindex).append(
+                    "<input type='text' name='variant[]' class='form-control inputs' placeholder='Masukkan nama varian' id='txt_" +
+                    nextindex + "'>&nbsp;<button id='remove_" + nextindex +
+                    "' type='button' class='remove btn btn-danger'><i class='fa fa-trash'></i> Hapus Data</button>"
+                    );
+
             }
+
         });
-    </script>
+
+        // Remove element
+        $('.boxer').on('click', '.remove', function () {
+
+            var id = this.id;
+            var split_id = id.split("_");
+            var deleteindex = split_id[1];
+
+
+
+            // Remove <div> with id
+            var elements = $(".inputs*");
+
+            const totals = elements.length - 1;
+
+            if (totals === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+                return
+            }
+
+            $("#div_" + deleteindex).remove();
+        });
+    });
+</script>
 @endpush

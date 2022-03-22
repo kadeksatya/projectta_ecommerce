@@ -19,6 +19,7 @@ class Customer extends Migration
             $table->bigIncrements('id');
             $table->text('name')->nullable();
             $table->text('email')->nullable();
+            $table->text('password')->nullable();
             $table->text('phone_number')->nullable();
             $table->longText('address')->nullable();
             $table->longText('photo')->nullable();

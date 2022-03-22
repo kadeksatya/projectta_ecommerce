@@ -17,6 +17,8 @@ class Varian extends Migration
 
         Schema::create('varian', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('product_id')->nullable();
+            $table->integer('stock_id')->nullable();
             $table->string('name')->nullable();
             $table->timestamps();
             $table->softDeletes();

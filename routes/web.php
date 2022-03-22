@@ -34,7 +34,7 @@ Route::get('/login', 'Auth\LoginController@login')->name('loginpro');
 Route::middleware(['auth'])->group(function () {
     Route::resource('admin', 'Admin\UserController');
     Route::resource('category', 'Admin\CategoryController');
-    Route::resource('variant', 'Admin\VariantController');
+    // Route::resource('variant', 'Admin\VariantController');
     Route::resource('ongkir', 'Admin\OngkirController');
     Route::resource('bank', 'Admin\BankController');
     Route::resource('unit', 'Admin\UnitController');
@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('sales', 'Admin\SalesController');
     Route::resource('stock', 'Admin\StockController');
     Route::get('/stock/{id}/detail', 'Admin\StockController@show');
+    Route::get('/stock/{id}/create', 'Admin\StockController@create');
     Route::resource('/user', 'Admin\UserController');
 
 });

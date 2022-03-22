@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Stock;
+use App\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,9 +27,11 @@ class StockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('stock.add');
+        $data['variant'] = Variant::find($id);
+        $data['stock'] = Stock::where('variant_id', $id)->get();
+        return view('stock.create', $data);
     }
 
     /**
@@ -42,7 +45,7 @@ class StockController extends Controller
         DB::beginTransaction();
 
         $this->validate($request, [
-            'product_id' => 'required',
+            'variant_id' => 'required',
 
         ]);
 
@@ -50,7 +53,7 @@ class StockController extends Controller
 
             if($request->stock_type === 'IN'){
                 $data = [
-                    'product_id' => $request->product_id,
+                    'variant_id' => $request->variant_id,
                     'stock_in' => $request->value,
                     'stock_out' => 0,
                     'remark' => $request->remark,
@@ -58,12 +61,12 @@ class StockController extends Controller
             }
             if($request->stock_type === 'OUT'){
                 $data = [
-                    'product_id' => $request->product_id,
+                    'variant_id' => $request->variant_id,
                     'stock_in' => 0,
                     'stock_out' => $request->value,
                     'remark' => $request->remark,
                 ];
-                $datasStock = Stock::where('product_id', $request->product_id)->sum('stock_in');
+                $datasStock = Stock::where('variant_id', $request->variant_id)->sum('stock_in');
 
                 // dd($datasStock);
 
@@ -96,9 +99,21 @@ class StockController extends Controller
      */
     public function show($id)
     {
-        $data['stock'] = Stock::where('product_id', $id)->get();
-        $data['product'] = Product::where('id', $id)->first();
+        $data['variant'] = Variant::with('stocks')->where('product_id', $id)->get();
         return view('stock.show', $data);
+    }
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function details($id)
+    {
+        $data['variant'] = Variant::find($id);
+        $data['stock'] = Stock::where('variant_id', $id)->get();
+        return view('stock.detail', $data);
     }
 
     /**
@@ -125,14 +140,14 @@ class StockController extends Controller
         // DB::beginTransaction();
 
         // $this->validate($request, [
-        //     'product_id' => 'required',
+        //     'variant_id' => 'required',
 
         // ]);
 
         // try {
 
         //     $data = [
-        //         'product_id' => $request->product_id,
+        //         'variant_id' => $request->variant_id,
         //         'stock_in' => $request->stock_in,
         //         'stock_out' => $request->stock_out,
         //     ];
