@@ -14,18 +14,7 @@ class Transaction extends Model
 
     protected $table = 'transaction';
 
-    protected $fillable = [
-        'order_no',
-        'customer',
-        'supplier_id',
-        'user_id',
-        'status',
-        'grand_total',
-        'service_fee',
-        'transaction_type',
-        'remark',
-        
-    ];
+    protected $guarded = [];
 
     protected static function boot()
     {

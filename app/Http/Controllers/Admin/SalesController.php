@@ -26,7 +26,6 @@ class SalesController extends Controller
     {
         $data['totals'] = Transaction::where('status', 3)->sum('grand_total');
         $data['transaction'] = DB::table('transaction')
-        ->where('transaction_type', 'SALES')
         ->where('deleted_at', '=', null)->get();
         return view('transaction.sales.index', $data);
     }
@@ -91,7 +90,6 @@ class SalesController extends Controller
                 'order_no' => $request->order_no,
                 'user_id' => Auth::user()->id,
                 'status' => $request->status,
-                'transaction_type' => 'SALES',
                 'service_fee' => $request->service_fee,
                 'grand_total'=> $request->grand_total,
                 'remark' => $request->remark
@@ -115,36 +113,6 @@ class SalesController extends Controller
                 TransactionDetail::create($product);
             }
 
-            if($request->status == 3){
-                $totals_income = (int)$request->grand_total - (int)$request->service_fee;
-                $data = new GeneralLedger();
-                $data->account_master_id = 4;
-                $data->transaction_date = Carbon::now()->format('Y-m-d');
-                $data->save();
-
-                $service = new GeneralLedger();
-                $service->account_master_id = 4;
-                $service->transaction_date = Carbon::now()->format('Y-m-d');
-                $service->save();
-
-                $dataArray = array(
-                    'general_ledger_id' => $data->id,
-                    'account_id' => 24,
-                    'type' => 'DB',
-                    'value' => $totals_income
-                );
-
-
-                $dataArrayService = array(
-                        'general_ledger_id' => $service->id,
-                        'account_id' => 4,
-                        'type' => 'DB',
-                        'value' => $request->service_fee
-                    );
-
-                GeneralLedgerDetail::create($dataArray);
-                GeneralLedgerDetail::create($dataArrayService);
-            }
 
             DB::commit();
 
@@ -258,42 +226,6 @@ class SalesController extends Controller
 
 
                 TransactionDetail::create($product);
-            }
-
-
-            if($request->status == 3){
-                $totals_income = (int)$request->grand_total - (int)$request->service_fee;
-                $data = new GeneralLedger();
-                $data->account_master_id = 4;
-                $data->transaction_date = Carbon::now()->format('Y-m-d');
-                $data->save();
-
-
-                $dataArray = array(
-                    'general_ledger_id' => $data->id,
-                    'account_id' => 24,
-                    'type' => 'DB',
-                    'value' => $totals_income
-                );
-
-
-                $dataArrayService = array(
-                        'general_ledger_id' => $data->id,
-                        'account_id' => 4,
-                        'type' => 'DB',
-                        'value' => $request->service_fee
-                    );
-
-                $dataArrayService = array(
-                        'general_ledger_id' => $data->id,
-                        'account_id' => 4,
-                        'type' => 'DB',
-                        'value' => $request->cost_price
-                    );
-
-
-                GeneralLedgerDetail::create($dataArray);
-                GeneralLedgerDetail::create($dataArrayService);
             }
 
 

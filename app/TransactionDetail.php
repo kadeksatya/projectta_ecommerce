@@ -12,14 +12,8 @@ class TransactionDetail extends Model
 
     protected $table = 'transaction_detail';
 
-    protected $fillable = [
-        'trx_id',
-        'product_id',
-        'qty',
-        'sub_total',
-        'product_price',
-        'discount',
-        
+    protected $guarded = [
+
     ];
 
 

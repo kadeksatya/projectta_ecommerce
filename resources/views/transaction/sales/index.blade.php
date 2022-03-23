@@ -25,7 +25,7 @@
 <div class="card">
     <div class="card-body">
         <h4>Data Penjualan</h4>
-        <a href="{{route('sales.create')}}" class="btn btn-primary">Tambah Penjualan</a>
+        {{-- <a href="{{route('sales.create')}}" class="btn btn-primary">Tambah Penjualan</a> --}}
         <div class="m-t-25">
 
             <table id="data-table" class="table">
@@ -69,14 +69,14 @@
                                     <i class="anticon anticon-setting"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                   
+
                                         <a href="/printinvoice/{{$t->id}}" class="dropdown-item">Print Invoice</a>
-                                
+
                                         <a href="{{route('sales.edit', $t->id)}}" class="dropdown-item">Edit</a>
-                                    
+
                                         <a href="#" data-url="{{route('sales.destroy', $t->id)}}" data-label="penjualan"
                                             class=" dropdown-item delete">Delete</a>
-                                    
+
                                 </div>
                             </div>
 
