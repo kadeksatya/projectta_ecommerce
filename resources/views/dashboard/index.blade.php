@@ -13,7 +13,7 @@
                         <i class="anticon anticon-shopping-cart"></i>
                     </div>
                     <div class="m-l-15">
-                        <h2 class="m-b-0">{{$product}}</h2>
+                        <h2 class="m-b-0">0</h2>
                         <p class="m-b-0 text-muted">Total Best Seller</p>
                     </div>
                 </div>
