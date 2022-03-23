@@ -10,6 +10,21 @@
             <div class="card-body">
                 <div class="media align-items-center">
                     <div class="avatar avatar-icon avatar-lg avatar-blue">
+                        <i class="anticon anticon-shopping-cart"></i>
+                    </div>
+                    <div class="m-l-15">
+                        <h2 class="m-b-0">{{$product}}</h2>
+                        <p class="m-b-0 text-muted">Total Best Seller</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="media align-items-center">
+                    <div class="avatar avatar-icon avatar-lg avatar-blue">
                         <i class="anticon anticon-barcode"></i>
                     </div>
                     <div class="m-l-15">

@@ -11,11 +11,5 @@ class Customer extends Model
 
     protected $table = 'customer';
 
-    protected $fillable = [
-        'name',
-        'phone_number',
-        'address',
-        'photo',
-        'email',
-    ];
-} 
+    protected $guarded = [];
+}

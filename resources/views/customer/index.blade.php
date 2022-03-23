@@ -7,7 +7,7 @@
 <div class="card">
     <div class="card-body">
         <h4>Data Customer</h4>
-        <a href="{{route('customer.create')}}" class="btn btn-primary">Tambah Customer</a>
+        {{-- <a href="{{route('customer.create')}}" class="btn btn-primary">Tambah Customer</a> --}}
         <div class="m-t-25">
 
             <table id="data-table" class="table">
@@ -33,7 +33,7 @@
                         <td>{{$u->address}}</td>
                         <td class="">
                             <a href="customer/{{$u->id}}/edit/" class="btn btn-primary">Edit</a>
-                            <a href="#" class="btn btn-danger delete" data-label="customer" data-url="{{route('customer.destroy', $u->id)}}">Delete</a>
+                            {{-- <a href="#" class="btn btn-danger delete" data-label="customer" data-url="{{route('customer.destroy', $u->id)}}">Delete</a> --}}
                         </td>
                     </tr>
 

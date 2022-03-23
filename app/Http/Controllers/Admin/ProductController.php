@@ -71,6 +71,29 @@ class ProductController extends Controller
                     $constraint->aspectRatio();
                 })->save($destinationPath.'/'.$new_name);
 
+
+                $data = [
+                    'name' => $request->name,
+                    'photo' => asset('img/').$new_name,
+                    'category_id' => $request->category_id,
+                    'unit_id' => $request->unit_id,
+                    'cost_price' => $request->cost_price,
+                    'sales_price' => $request->sales_price,
+                    'is_active' => $request->is_active ?? 1,
+                    'remark' => $request->remark,
+                ];
+            }
+            else{
+                $data = [
+                    'name' => $request->name,
+                    'photo' => asset('img/product-image.png'),
+                    'category_id' => $request->category_id,
+                    'unit_id' => $request->unit_id,
+                    'cost_price' => $request->cost_price,
+                    'sales_price' => $request->sales_price,
+                    'is_active' => $request->is_active ?? 1,
+                    'remark' => $request->remark,
+                ];
             }
 
             if (Product::where('name', $request->name)->exists()) {
@@ -78,22 +101,7 @@ class ProductController extends Controller
                              ->with('error', 'Nama product sudah digunakan.');
             }
 
-            $data = [
-                'name' => $request->name,
-                'photo' => asset('img').'/'.$new_name ?? '',
-                'category_id' => $request->category_id,
-                'unit_id' => $request->unit_id,
-                'cost_price' => $request->cost_price,
-                'sales_price' => $request->sales_price,
-                'is_active' => $request->is_active ?? 1,
-                'remark' => $request->remark,
-            ];
-
-
-
-
            $product = Product::create($data);
-
 
             for ($i=0; $i < count($request->variant); $i++) {
                 $data =[
@@ -167,6 +175,8 @@ class ProductController extends Controller
 
         ]);
 
+        $datas = Product::find($id);
+
         try {
 
             $image_hidden = $request->imagehidden;
@@ -186,9 +196,9 @@ class ProductController extends Controller
 
             $data = [
                 'name' => $request->name,
-                'photo' => asset('img').'/'.$image_hidden,
+                'photo' => asset('img').'/'.$image_hidden ?? $datas->photo,
                 'category_id' => $request->category_id,
-                'unit_id' => $request->unit_id,
+                'unit_id' => $request->unit_id, 
                 'cost_price' => $request->cost_price,
                 'sales_price' => $request->sales_price,
                 'is_active' => $request->is_active ?? 1,

@@ -98,7 +98,7 @@
                         <a href="{{route('user.index')}}">User</a>
                     </li>
                     <li>
-                        <a href="{{route('user.index')}}">Customer</a>
+                        <a href="{{route('customer.index')}}">Customer</a>
                     </li>
                     {{-- <li>
                         <a href="{{route('customer.index')}}">Customer</a>
