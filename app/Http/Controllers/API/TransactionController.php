@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Product;
 use App\Stock;
 use App\Transaction;
 use App\TransactionDetail;
@@ -82,11 +83,10 @@ class TransactionController extends Controller
                 $stock = [
                     'variant_id' => $value['variant_id'],
                     'stock_out' => $value['qty'],
-                    'remark' => 'Stock sudah terjual di sebesar '.' '.$value['qty'].' '.'di order id'.' '.$datas['order_no']
+                    'remark' => 'Stock sudah terjual sebesar '.' '.$value['qty'].' '.'di order id'.' '.$datas['order_no']
                 ];
 
-
-
+                Product::whereId($value['product_id'])->increment('checkout_time');
                 TransactionDetail::create($product);
                 Stock::create($stock);
             }

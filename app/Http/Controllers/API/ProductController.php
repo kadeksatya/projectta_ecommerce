@@ -40,8 +40,8 @@ class ProductController extends Controller
         try{
 
         Product::whereId($id)->increment('views');
-        
-        $data = Product::whereId($id)->first();
+
+        $data = Product::whereId($id)->with('variant')->first();
 
         if(!$data){
 
