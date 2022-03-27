@@ -73,6 +73,7 @@ class AuthController extends Controller
 
     public function profile()
     {
+
         $user = auth('api')->user();
 
         return response([

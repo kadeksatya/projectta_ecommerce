@@ -19,6 +19,7 @@ class Ongkir extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->integer('value')->nullable();
+            $table->text('remark')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

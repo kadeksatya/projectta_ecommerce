@@ -19,6 +19,7 @@ class Bank extends Migration
             $table->bigIncrements('id');
             $table->string('photo')->nullable();
             $table->string('name')->nullable();
+            $table->string('bank_name')->nullable();
             $table->integer('no_rek')->nullable();
             $table->timestamps();
             $table->softDeletes();
