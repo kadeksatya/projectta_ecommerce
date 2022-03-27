@@ -115,10 +115,11 @@ class TransactionController extends Controller
         try {
 
             $datas = Transaction::with(['bank','ongkir','address','transaction_details.product','transaction_details.variant'])
+            ->where('id', $id)
             ->get();
 
             return response()->json([
-                'message' => 'Data successfully created !',
+                'message' => 'Data found !',
                 'data' => $datas
             ], 200);
 
@@ -130,6 +131,29 @@ class TransactionController extends Controller
             return response()->json([$e->getMessage() . " at line " . $e->getLine()], 500);
         }
     }
+
+    public function list($id)
+    {
+        try {
+
+            $datas = Transaction::with(['bank','ongkir','address','transaction_details.product','transaction_details.variant'])
+            ->where('customer_id', $id)
+            ->get();
+
+            return response()->json([
+                'message' => 'Data found !',
+                'data' => $datas
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([$e->getMessage() . " at line " . $e->getLine()], 500);
+        } catch (\Throwable $e) {
+            DB::rollback();
+            return response()->json([$e->getMessage() . " at line " . $e->getLine()], 500);
+        }
+    }
+
 
 
 

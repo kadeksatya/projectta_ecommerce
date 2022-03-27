@@ -9,11 +9,20 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
+
     public function getListProduct(Request $request)
     {
         try{
 
-        $data = Product::paginate(($request->all()));
+        if($request->product != ''){
+            $data = Product::where('name', 'LIKE', '%'.$request->product.'%')
+            ->get();
+        }
+        else{
+            $data = Product::all();
+
+        }
+
 
         return response()->json([
             'message' => 'data found',
