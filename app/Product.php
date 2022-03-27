@@ -12,19 +12,10 @@ class Product extends Model
     use SoftDeletes;
     protected $table = 'product';
 
-    protected $fillable = [
-        'name',
-        'photo',
-        'category_id',
-        'variant_id',
-        'unit_id',
-        'stock_id',
-        'cost_price',
-        'sales_price',
-        'is_active',
-        'remark',
+    protected $guarded = [
 
     ];
+
 
 
     public function category(): BelongsTo

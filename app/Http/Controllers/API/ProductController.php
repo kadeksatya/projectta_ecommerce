@@ -78,4 +78,83 @@ class ProductController extends Controller
         }
 
     }
+
+    public function getRecommendationProduct(Request $request)
+    {
+        try{
+
+            $data = Product::orderBy('checkout_time','DESC')
+            ->get();
+
+
+
+        return response()->json([
+            'message' => 'data found',
+            'data' => $data
+        ], 200);
+
+        } catch (\Exception $e) {
+
+            return response([
+                'message' => [$e->getMessage() . " at line " . $e->getLine()]
+            ], 500);
+        } catch (\Throwable $e) {
+
+            return response([
+                'message' => [$e->getMessage() . " at line " . $e->getLine()]
+            ], 500);
+        }
+
+    }
+
+    public function getPopularProduct(Request $request)
+    {
+        try{
+
+            $data = Product::orderBy('views','DESC')
+            ->get();
+
+        return response()->json([
+            'message' => 'data found',
+            'data' => $data
+        ], 200);
+
+        } catch (\Exception $e) {
+
+            return response([
+                'message' => [$e->getMessage() . " at line " . $e->getLine()]
+            ], 500);
+        } catch (\Throwable $e) {
+
+            return response([
+                'message' => [$e->getMessage() . " at line " . $e->getLine()]
+            ], 500);
+        }
+
+    }
+    public function getIsFeaturedProduct(Request $request)
+    {
+        try{
+
+            $data = Product::where('is_feature', 1)
+            ->get();
+
+        return response()->json([
+            'message' => 'data found',
+            'data' => $data
+        ], 200);
+
+        } catch (\Exception $e) {
+
+            return response([
+                'message' => [$e->getMessage() . " at line " . $e->getLine()]
+            ], 500);
+        } catch (\Throwable $e) {
+
+            return response([
+                'message' => [$e->getMessage() . " at line " . $e->getLine()]
+            ], 500);
+        }
+
+    }
 }
