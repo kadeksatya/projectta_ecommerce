@@ -29,6 +29,7 @@ class Product extends Migration
             $table->boolean('is_feature')->default(0);
             $table->longText('remark')->nullable();
             $table->integer('views')->default(0);
+            $table->integer('checkout_time')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

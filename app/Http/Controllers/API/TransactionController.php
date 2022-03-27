@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Stock;
 use App\Transaction;
 use App\TransactionDetail;
 use App\UserCustomers;
@@ -64,8 +65,7 @@ class TransactionController extends Controller
 
             }
 
-
-
+            $datas = Transaction::where('id', $ids)->first();
             $product_ids = $request->transaction_detail;
 
             // dd($product_ids);
@@ -79,13 +79,20 @@ class TransactionController extends Controller
                     'sub_total' => $value['sub_total'] ?? 0,
                 ];
 
+                $stock = [
+                    'variant_id' => $value['variant_id'],
+                    'stock_out' => $value['qty'],
+                    'remark' => 'Stock sudah terjual di sebesar '.' '.$value['qty'].' '.'di order id'.' '.$datas['order_no']
+                ];
+
 
 
                 TransactionDetail::create($product);
+                Stock::create($stock);
             }
 
 
-            $datas = Transaction::where('id', $ids)->get();
+
 
             DB::commit();
 

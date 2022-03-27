@@ -18,8 +18,8 @@ class Stock extends Migration
         Schema::create('stock', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('variant_id')->nullable();
-            $table->integer('stock_in')->nullable();
-            $table->integer('stock_out')->nullable();
+            $table->integer('stock_in')->default(0);
+            $table->integer('stock_out')->default(0);
             $table->string('remark', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();

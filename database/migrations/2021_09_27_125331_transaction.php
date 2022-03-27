@@ -28,6 +28,7 @@ class Transaction extends Migration
             $table->integer('transfer_value')->nullable();
             $table->integer('address_id')->nullable();
             $table->longText('remark')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
 

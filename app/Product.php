@@ -39,4 +39,8 @@ class Product extends Model
     {
         return $this->belongsTo('App\Stock', 'stock_id');
     }
+    public function variant(): BelongsTo
+    {
+        return $this->belongsTo('App\Variant', 'variant_id');
+    }
 }
