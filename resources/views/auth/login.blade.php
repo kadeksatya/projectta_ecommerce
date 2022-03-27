@@ -55,7 +55,7 @@
                                     </div>
                                     </div>
                                     @endif
-                                    <form method="HEAD" action="{{ route('loginpro') }}">
+                                    <form method="post" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
                                             <label class="font-weight-semibold" for="username">Username:</label>

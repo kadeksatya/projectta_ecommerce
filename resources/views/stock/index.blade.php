@@ -12,10 +12,8 @@
             <table id="data-table" class="table">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Nama Product</th>
-                        <th>Jumlah Stok Masuk</th>
-                        <th>Jumlah Stok Keluar</th>
+                        <th width="10%">#</th>
+                        <th width="80%">Nama Product</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,8 +32,6 @@
                         <td>{{$i++}}</td>
 
                         <td>{{$p->name}}</td>
-                        <td>{{$p->stock->stock_in ?? 0}}</td>
-                        <td>{{$p->stock->stock_out ?? 0}}</td>
                         <td class="">
                             <a href="stock/{{$p->id}}/detail" class="btn btn-primary">Detail</a>
                         </td>

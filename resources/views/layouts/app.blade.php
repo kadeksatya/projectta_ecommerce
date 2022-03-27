@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
 
@@ -17,7 +18,7 @@
         <div class="layout">
             @if ($errors->any())
             @foreach ($errors->all() as $error)
-                <div class="error" data-message="{{$error}}"></div>
+            <div class="error" data-message="{{$error}}"></div>
             @endforeach
             @endif
 
@@ -65,7 +66,8 @@
                                             <i class="anticon anticon-user" style="color:#53535f"></i>
                                         </div>
                                         <div class="m-l-10">
-                                            <p class="m-b-0 text-dark font-weight-semibold">{{auth('web')->user()->name}}</p>
+                                            <p class="m-b-0 text-dark font-weight-semibold">
+                                                {{auth('web')->user()->name}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -116,6 +118,8 @@
     </div>
 
 
+
+
     @include('layouts.link_js')
 
     <script>
@@ -124,93 +128,96 @@
                 format: 'yyyy-m-d'
             });
 
-            $('.logout-btn').click(function(){
+            $('.logout-btn').click(function () {
                 $("#form-logout").submit();
             })
 
             // Drofify
 
-        // Delete Localstorage
-        window.onunload = function () {
-            localStorage.clear();
-        }
-
-        $('.dropify').dropify()
-
-        toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-        }
-
-        $('.error').show(function(){
-            var message = $(this).data('message')
-            Swal.fire(
-            'Perhatian',
-            message,
-            'error'
-            )
-        })
-
-        $('.success').show(function(){
-            var message = $(this).data('message')
-            toastr.success(message, 'Perhatian')
-        })
-
-          $('.delete').click(function(){
-            var label = $(this).data('label');
-            var url = $(this).data('url');
-            Swal.fire({
-            title: 'Perhatian',
-            text: "Apakah yakin menghapus data "+label+" ?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, Hapus!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              var id = $(this).data("id");
-              var token = $("meta[name='csrf-token']").attr("content");
-                  $.ajax(
-                    {
-                        url: url,
-                        type: 'DELETE',
-                        data: {
-                            "id": id,
-                            "_token": token,
-                        },
-                        success: function (data){
-                          Swal.fire(
-                            'Deleted!',
-                            data.message,
-                            'success'
-                          )
-                          window.location.reload().time(3)
-                        }
-                    });
+            // Delete Localstorage
+            window.onunload = function () {
+                localStorage.clear();
             }
-          })
-          })
 
-          $('#data-table').DataTable();
+            $('.dropify').dropify()
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            $('.error').show(function () {
+                var message = $(this).data('message')
+                Swal.fire(
+                    'Perhatian',
+                    message,
+                    'error'
+                )
+            })
+
+            $('.success').show(function () {
+                var message = $(this).data('message')
+                toastr.success(message, 'Perhatian')
+            })
+
+            $('.delete').click(function () {
+
+                var label = $(this).data('label');
+                var url = $(this).data('url');
+                Swal.fire({
+                    title: 'Perhatian',
+                    text: "Apakah yakin menghapus data " + label + " ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var id = $(this).data("id");
+                        var token = $("meta[name='csrf-token']").attr("content");
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            data: {
+                                "id": id,
+                                "_token": token,
+                            },
+                            success: function (data) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    data.message,
+                                    'success'
+                                )
+                                window.location.reload().time(3)
+                            }
+                        });
+                    }
+                })
+            })
+
+
+
+
+            $('#data-table').DataTable();
 
         });
-      </script>
+    </script>
 
-@stack('script')
+    @stack('script')
 
 </body>
 

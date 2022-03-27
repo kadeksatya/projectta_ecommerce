@@ -20,4 +20,5 @@ class Stock extends Model
 
     ];
 
+
 }

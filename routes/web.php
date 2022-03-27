@@ -29,7 +29,7 @@ Auth::routes(['register' => false]);
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/login', 'Auth\LoginController@login')->name('loginpro');
+// Route::get('/login', 'Auth\LoginController@login')->name('loginpro');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('admin', 'Admin\UserController');
@@ -45,6 +45,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/stock/{id}/detail', 'Admin\StockController@show');
     Route::get('/stock/{id}/create', 'Admin\StockController@create');
     Route::resource('/user', 'Admin\UserController');
+    Route::put('/order/process/{id}','Admin\SalesController@procces');
+    Route::put('/order/send/{id}','Admin\SalesController@send');
+    Route::put('/order/complete/{id}','Admin\SalesController@complete');
+    Route::put('/order/cencel/{id}','Admin\SalesController@cencel');
 
 });
 

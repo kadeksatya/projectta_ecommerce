@@ -33,4 +33,14 @@ class TransactionDetail extends Model
     {
         return $this->belongsTo('App\Product', 'product_id');
     }
+
+        /**
+     * Get the product that owns the TransactionDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function variant()
+    {
+        return $this->belongsTo('App\Variant', 'variant_id');
+    }
 }

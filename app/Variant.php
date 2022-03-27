@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Stock;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,6 +14,19 @@ class Variant extends Model
     protected $table = 'varian';
 
     protected $guarded = [];
+
+    protected $appends =[
+        'stock_total'
+    ];
+
+    public function getStockTotalAttribute()
+    {
+        $totals = Stock::where('variant_id', $this->id);
+
+        $totals = $totals->sum('stock_in') - $totals->sum('stock_out');
+        return $totals;
+    }
+
 
 
 

@@ -17,8 +17,9 @@ class TransactionDetail extends Migration
 
         Schema::create('transaction_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('trx_id')->nullable();
+            $table->string('trx_id')->nullable();
             $table->integer('product_id')->nullable();
+            $table->integer('variant_id')->nullable();
             $table->integer('qty')->nullable();
             $table->integer('sub_total')->nullable();
             $table->integer('product_price')->nullable();
@@ -41,3 +42,6 @@ class TransactionDetail extends Migration
         Schema::dropIfExists('transaction_detail');
     }
 }
+
+
+

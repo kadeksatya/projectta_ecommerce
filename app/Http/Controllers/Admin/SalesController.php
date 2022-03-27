@@ -25,8 +25,7 @@ class SalesController extends Controller
     public function index()
     {
         $data['totals'] = Transaction::where('status', 3)->sum('grand_total');
-        $data['transaction'] = DB::table('transaction')
-        ->where('deleted_at', '=', null)->get();
+        $data['transaction'] = Transaction::with(['customer'])->orderby('created_at', 'DESC')->paginate(5);
         return view('transaction.sales.index', $data);
     }
 
@@ -72,59 +71,6 @@ class SalesController extends Controller
     {
         DB::beginTransaction();
 
-        $this->validate($request, [
-            'customer' => 'required',
-            'order_no' => 'required',
-            'status' => 'required',
-            'grand_total' => 'required',
-            'product_id' => 'required',
-
-
-        ]);
-
-
-        try {
-
-            $ids = Transaction::insertGetId([
-                'customer' => $request->customer,
-                'order_no' => $request->order_no,
-                'user_id' => Auth::user()->id,
-                'status' => $request->status,
-                'service_fee' => $request->service_fee,
-                'grand_total'=> $request->grand_total,
-                'remark' => $request->remark
-
-
-            ]);
-
-
-            $product_ids = $request->product_id;
-
-            for ($count = 0; $count < count($product_ids); $count++) {
-                $product = [
-                    'trx_id' => $ids,
-                    'product_id' => $request->product_id[$count],
-                    'qty' => $request->qty[$count] ?? 0,
-                    'product_price' => $request->sales_price[$count] ?? 0,
-                    'sub_total' => $request->sub_total[$count] ?? 0,
-                ];
-
-
-                TransactionDetail::create($product);
-            }
-
-
-            DB::commit();
-
-            return redirect()->route('sales.index')
-                             ->with('success', 'Transaction Penjualan berhasil dibuat.');
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->withErrors([$e->getMessage() . " at line " . $e->getLine()]);
-        } catch (\Throwable $e) {
-            DB::rollback();
-            return redirect()->back()->withErrors([$e->getMessage() . " at line " . $e->getLine()]);
-        }
     }
     /**
      * Display the specified resource.
@@ -158,6 +104,52 @@ class SalesController extends Controller
         // dd($data['sales']);
     }
 
+    public function procces($id)
+    {
+        Transaction::whereId($id)->update([
+            'status' => 'PROCESSING'
+        ]);
+        return response()->json([
+            'message' => 'Order berhasil diprocess'
+        ]);
+
+    }
+
+    public function send(Request $request, $id)
+    {
+        Transaction::whereId($id)->update([
+            'status' => 'SENDING',
+            'resi_no' => $request->resi_no
+        ]);
+        return response()->json([
+            'message' => 'Order berhasil dikirim'
+        ]);
+
+    }
+
+    public function complete($id)
+    {
+        Transaction::whereId($id)->update([
+            'status' => 'COMPLETED'
+        ]);
+        return response()->json([
+            'message' => 'Order berhasil diselesaikan'
+        ]);
+
+    }
+
+    public function cencel($id)
+    {
+        Transaction::whereId($id)->update([
+            'status' => 'CENCEL'
+        ]);
+        return response()->json([
+            'message' => 'Order berhasil dibatalkan'
+        ]);
+
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -187,10 +179,9 @@ class SalesController extends Controller
         // dd($request->all());
 
         $this->validate($request, [
-            'customer' => 'required',
+            'customer_id' => 'required',
             'order_no' => 'required',
             'status' => 'required',
-            'grand_total' => 'required',
             'product_id' => 'required',
 
 
@@ -199,13 +190,15 @@ class SalesController extends Controller
         try {
 
             Transaction::where('id', $id)->update([
-                'customer' => $request->customer,
+                'customer_id' => $request->customer,
                 'order_no' => $request->order_no,
-                'user_id' => Auth::user()->id,
-                'status' => $request->status,
-                'transaction_type' => 'SALES',
-                'service_fee' => $request->service_fee,
-                'grand_total'=> $request->grand_total,
+                'status' => "ON_PROGRESS",
+                'payment_status' => "PENDING",
+                'ongkir_id'=> $request->ongkir_id,
+                'bank_id'=> $request->bank_id,
+                'payment_value'=> $request->payment_value,
+                'transfer_value'=> $request->transfer_value,
+                'address_id' => $request->address_id,
                 'remark' => $request->remark
 
 

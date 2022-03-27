@@ -30,4 +30,24 @@ Route::get('v1/product/list','API\ProductController@getListProduct')->middleware
 Route::get('v1/product/{id}','API\ProductController@getDetailProduct')->middleware('jwt.verify');
 
 
+// Address
+Route::get('v1/address/list/{customer_id}','API\AddressController@getAddress')->middleware('jwt.verify');
+Route::post('v1/address/store','API\AddressController@createDataAddress')->middleware('jwt.verify');
+Route::put('v1/address/{id}/update','API\AddressController@updateDataAddress')->middleware('jwt.verify');
+Route::delete('v1/address/{id}/delete','API\AddressController@createDataAddress')->middleware('jwt.verify');
+
+// Stock
+Route::post('v1/stock','API\StockController@getListStock');
+
+// BANK
+Route::get('v1/bank','API\BankController@getListBank');
+
+// Onkir
+Route::get('v1/onkir','API\TransportController@getListTransport');
+
+
+// Transaction
+
+Route::post('v1/transaction/store','API\TransactionController@store')->middleware('jwt.verify');
+Route::get('v1/transaction/{id}/detail','API\TransactionController@detail')->middleware('jwt.verify');
 

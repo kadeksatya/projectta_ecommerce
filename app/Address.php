@@ -11,11 +11,7 @@ class Address extends Model
 
     protected $table = 'address';
 
-    protected $fillable = [
-        'customer_id',
-        'name',
-        'address',
-        'remark'
+    protected $guarded = [
 
     ];
 }
