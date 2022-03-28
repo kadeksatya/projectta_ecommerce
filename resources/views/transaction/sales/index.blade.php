@@ -25,7 +25,7 @@
 <div class="card">
     <div class="card-body">
         <h4>Data Penjualan</h4>
-        {{$transaction}}
+
         {{-- <a href="{{route('sales.create')}}" class="btn btn-primary">Tambah Penjualan</a> --}}
         <div class="m-t-25">
 
@@ -66,6 +66,10 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <a href="{{route('sales.show', $t->id)}}" class="dropdown-item">Detail Order</a>
+                                    @if ($t->status == 'PENDING')
+                                    <a href="javascript:void(0)" data-url="/order/pending/{{$t->id}}"
+                                        data-id="{{$t->id}}" class="dropdown-item updateStatus">Proses Pembayaran</a>
+                                    @endif
                                     @if ($t->status == 'PAID')
                                     <a href="javascript:void(0)" data-url="/order/process/{{$t->id}}"
                                         data-id="{{$t->id}}" class="dropdown-item updateStatus">Process Order</a>
@@ -78,9 +82,17 @@
                                     @if ($t->status == 'SENDING')
                                     <a href="javascript:void(0)" data-url="/order/complete/{{$t->id}}"
                                         data-id="{{$t->id}}" class="dropdown-item updateStatus">Complete Order</a>
+
+                                    <a href="javascript:void(0)" data-url="/order/resi/{{$t->id}}" data-status="UPDATE_RESI"
+                                        data-id="{{$t->id}}" data-resi="{{$t->resi_no}}" class="dropdown-item updateStatus">Update Resi</a>
                                     @endif
-                                    <a href="#" data-url="{{route('sales.destroy', $t->id)}}" data-label="penjualan"
-                                        class=" dropdown-item delete">Delete</a>
+                                    @if ($t->status == 'PENDING' || $t->status == 'PAID')
+                                    <a href="javascript:void(0)" data-url="/order/cencel/{{$t->id}}"
+                                        data-id="{{$t->id}}" class="dropdown-item updateStatus">Batalkan Order</a>
+                                        <a href="#" data-url="{{route('sales.destroy', $t->id)}}" data-label="penjualan"
+                                            class=" dropdown-item delete">Delete</a>
+                                    @endif
+
                                 </div>
                             </div>
 
@@ -131,18 +143,23 @@
     </div>
 </div>
 <script>
-    $('.updateStatus').click(function () {
+    $(document).ready(function () {
+        $('.updateStatus').click(function () {
         $('#no_resi').val('');
         console.log('klik cang')
         var label = $(this).data('label');
-        var url = $('.updateStatus').data('url');
+        var resi_num = $(this).data('resi')
+        var url = $(this).data('url');
         var resi = $(this).data('status');
         var id = $(this).data('id');
         $('#modalStatusChange').modal('show')
         console.log(url);
-        if (resi === 'SENDING') {
+
+        if (resi === 'SENDING' || resi === 'UPDATE_RESI') {
             $('.updateResi').removeClass('d-none');
             $('.textDefault').addClass('d-none');
+            $('#no_resi').val(resi_num || '');
+
         } else {
             $('.updateResi').addClass('d-none');
             $('.textDefault').removeClass('d-none');
@@ -240,5 +257,7 @@
         //     }
         //   })
     })
+    });
+
 </script>
 @endpush

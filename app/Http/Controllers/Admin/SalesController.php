@@ -24,8 +24,9 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $data['totals'] = Transaction::where('status', 3)->sum('grand_total');
+        $data['totals'] = Transaction::where('status', 'COMPLETED')->sum('grand_total');
         $data['transaction'] = Transaction::with(['customer'])->orderby('created_at', 'DESC')->paginate(5);
+        // dd($data['totals']);
         return view('transaction.sales.index', $data);
     }
 
@@ -115,7 +116,30 @@ class SalesController extends Controller
 
     }
 
+    public function pending($id)
+    {
+        Transaction::whereId($id)->update([
+            'status' => 'PAID'
+        ]);
+        return response()->json([
+            'message' => 'Pembayaran berhasil diprocess'
+        ]);
+
+    }
+
     public function send(Request $request, $id)
+    {
+        Transaction::whereId($id)->update([
+            'status' => 'SENDING',
+            'resi_no' => $request->resi_no
+        ]);
+        return response()->json([
+            'message' => 'Order berhasil dikirim'
+        ]);
+
+    }
+
+    public function updateResi(Request $request, $id)
     {
         Transaction::whereId($id)->update([
             'status' => 'SENDING',

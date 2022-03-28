@@ -46,7 +46,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/stock/{id}/create', 'Admin\StockController@create');
     Route::resource('/user', 'Admin\UserController');
     Route::put('/order/process/{id}','Admin\SalesController@procces');
+    Route::put('/order/pending/{id}','Admin\SalesController@pending');
     Route::put('/order/send/{id}','Admin\SalesController@send');
+    Route::put('/order/resi/{id}','Admin\SalesController@updateResi');
     Route::put('/order/complete/{id}','Admin\SalesController@complete');
     Route::put('/order/cencel/{id}','Admin\SalesController@cencel');
 

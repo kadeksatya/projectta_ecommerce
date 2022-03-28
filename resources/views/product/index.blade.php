@@ -35,8 +35,8 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$p->name}}</td>
-                        <td>{{$p->category->name}}</td>
-                        <td>{{$p->unit->name}}</td>
+                        <td>{{$p->category->name ?? '-'}}</td>
+                        <td>{{$p->unit->name ?? '-'}}</td>
                         <td>{{$p->sales_price}}</td>
                         <td class="">
                             <a href="product/{{$p->id}}/edit/" class="btn btn-primary">Edit</a>
