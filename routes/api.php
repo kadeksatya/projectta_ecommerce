@@ -35,10 +35,10 @@ Route::get('v1/product/list/popular','API\ProductController@getPopularProduct')-
 
 
 // Address
-Route::get('v1/address/list/{customer_id}','API\AddressController@getAddress')->middleware('jwt.verify');
-Route::post('v1/address/store','API\AddressController@createDataAddress')->middleware('jwt.verify');
-Route::put('v1/address/{id}/update','API\AddressController@updateDataAddress')->middleware('jwt.verify');
-Route::delete('v1/address/{id}/delete','API\AddressController@createDataAddress')->middleware('jwt.verify');
+Route::get('v1/address/list/{customer_id}','API\AddressController@index')->middleware('jwt.verify');
+Route::post('v1/address/store','API\AddressController@store')->middleware('jwt.verify');
+Route::put('v1/address/{id}/update','API\AddressController@update')->middleware('jwt.verify');
+Route::delete('v1/address/{id}/delete','API\AddressController@destroy')->middleware('jwt.verify');
 
 // Stock
 Route::post('v1/stock','API\StockController@getListStock');

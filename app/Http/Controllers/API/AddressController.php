@@ -5,11 +5,14 @@ namespace App\Http\Controllers\API;
 use App\Address;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
-    public function getAddress($customer_id)
+    public function index($customer_id)
     {
+
+
         try{
 
             $data = Address::where('customer_id', $customer_id)->get();
@@ -21,6 +24,7 @@ class AddressController extends Controller
                     'data' => $data
                 ], 200);
             }
+
 
             return response()->json([
                 'message' => 'data found',
@@ -40,19 +44,23 @@ class AddressController extends Controller
             }
     }
 
-    public function createDataAddress(Request $request)
+    public function store(Request $request)
     {
-       $datas =  $request->validate([
-            'name' => 'required',
-            'customer_id' => 'required',
-            'address' => 'required',
-            'remark' => 'required',
-        ]);
 
+        DB::beginTransaction();
         try{
 
-            $data = Address::create($datas);
 
+            Address::create([
+                'name' => $request->name,
+                'customer_id' => $request->customer_id,
+                'address' => $request->address,
+                'remark' => $request->remark,
+            ]);
+
+            $data = Address::where('customer_id', $request->customer_id)->first();
+
+            DB::commit();
             return response()->json([
                 'message' => 'address successully created !',
                 'data' => $data
@@ -70,19 +78,24 @@ class AddressController extends Controller
                 ], 500);
             }
     }
-    public function updateDataAddress(Request $request, $id)
+    public function update(Request $request, $id)
     {
-       $datas =  $request->validate([
-            'name' => 'required',
-            'customer_id' => 'required',
-            'address' => 'required',
-            'remark' => 'required',
-        ]);
+
+        DB::beginTransaction();
 
         try{
 
-            $data = Address::whereId($id)->update($datas);
 
+            Address::whereId($id)->update([
+                'name' => $request->name,
+                'customer_id' => $request->customer_id,
+                'address' => $request->address,
+                'remark' => $request->remark,
+            ]);
+
+            DB::commit();
+
+            $data = Address::where('customer_id', $request->customer_id)->first();
             return response()->json([
                 'message' => 'address successully updated !',
                 'data' => $data
@@ -101,10 +114,8 @@ class AddressController extends Controller
             }
     }
 
-    public function deleteDataAddress($id)
+    public function destroy($id)
     {
-
-
         try{
 
             Address::whereId($id)->delete();
