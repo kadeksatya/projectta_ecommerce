@@ -87,7 +87,6 @@ class TransactionController extends Controller
                     'remark' => 'Stock sudah terjual sebesar '.' '.$value['qty'].' '.'di order id'.' '.$datas['order_no']
                 ];
 
-                Product::whereId($value['product_id'])->increment('checkout_time');
                 TransactionDetail::create($product);
                 Stock::create($stock);
             }

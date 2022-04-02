@@ -28,10 +28,11 @@ Route::get('v1/category/{id}','API\CategoryController@getProductWithCategory')->
 // Product
 Route::get('v1/product/{id}','API\ProductController@getDetailProduct')->middleware('jwt.verify');
 // List Product
-Route::get('v1/product/list','API\ProductController@getListProduct')->middleware('jwt.verify');
 Route::get('v1/product/list/feature','API\ProductController@getIsFeaturedProduct')->middleware('jwt.verify');
 Route::get('v1/product/list/recommendation','API\ProductController@getRecommendationProduct')->middleware('jwt.verify');
 Route::get('v1/product/list/popular','API\ProductController@getPopularProduct')->middleware('jwt.verify');
+Route::get('v1/list/product','API\ProductController@getList')->middleware('jwt.verify');
+
 
 
 // Address

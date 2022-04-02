@@ -81,7 +81,7 @@ class SalesController extends Controller
      */
     public function show($id)
     {
-        $data['transaction'] = Transaction::find($id);
+        $data['transaction'] = Transaction::with(['customer','address','ongkir','bank', 'transaction_details.product','transaction_details.variant']);
         return view('admin.transaction.show', $data);
     }
 
@@ -156,6 +156,13 @@ class SalesController extends Controller
         Transaction::whereId($id)->update([
             'status' => 'COMPLETED'
         ]);
+
+        $data = TransactionDetail::where('trx_id', $id)->get();
+
+        foreach ($data as $key => $value) {
+            Product::whereId($value['product_id'])->increment('checkout_time');
+        }
+
         return response()->json([
             'message' => 'Order berhasil diselesaikan'
         ]);
@@ -167,6 +174,21 @@ class SalesController extends Controller
         Transaction::whereId($id)->update([
             'status' => 'CENCEL'
         ]);
+
+        $datas = Transaction::whereId($id)->get();
+
+        $data = TransactionDetail::where('trx_id', $id)->get();
+
+
+
+        foreach ($data as $key => $value) {
+            $stock = [
+                'variant_id' => $value['variant_id'],
+                'stock_in' => $value['qty'],
+                'remark' => 'Stock bertambah sebesar '.' '.$value['qty'].' '.'karena pesanan dibatalkan dengan kode'.' '.$datas['order_no']
+            ];
+        }
+
         return response()->json([
             'message' => 'Order berhasil dibatalkan'
         ]);

@@ -9,12 +9,9 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-
-    public function getListProduct(Request $request)
+    public function getList(Request $request)
     {
-        try{
-
-        if($request->product != ''){
+        if($request->product != null){
             $data = Product::where('name', 'LIKE', '%'.$request->product.'%')
             ->get();
         }
@@ -22,25 +19,10 @@ class ProductController extends Controller
             $data = Product::all();
 
         }
-
-
         return response()->json([
             'message' => 'data found',
             'data' => $data
         ], 200);
-
-        } catch (\Exception $e) {
-
-            return response([
-                'message' => [$e->getMessage() . " at line " . $e->getLine()]
-            ], 500);
-        } catch (\Throwable $e) {
-
-            return response([
-                'message' => [$e->getMessage() . " at line " . $e->getLine()]
-            ], 500);
-        }
-
     }
 
 
