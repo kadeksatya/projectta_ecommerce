@@ -52,7 +52,7 @@ Route::get('v1/onkir','API\TransportController@getListTransport');
 
 // Transaction
 
-Route::post('v1/transaction/update/{id}','API\TransactionController@update')->middleware('jwt.verify');
+Route::post('v1/transaction/store','API\TransactionController@store')->middleware('jwt.verify');
 Route::get('v1/transaction/{id}/detail','API\TransactionController@detail')->middleware('jwt.verify');
 Route::get('v1/transaction/{id}/list','API\TransactionController@list')->middleware('jwt.verify');
 
