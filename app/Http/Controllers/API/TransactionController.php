@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Cart;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Stock;
@@ -91,6 +92,7 @@ class TransactionController extends Controller
                 Stock::create($stock);
             }
 
+            Cart::where('customer_id', $request->customer_id)->delete();
 
 
 

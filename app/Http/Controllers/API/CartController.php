@@ -36,7 +36,24 @@ class CartController extends Controller
             'sales_price' => $request->sales_price,
         );
 
-        $datas =  Cart::create($data);
+        $variant = Cart::where('variant_id', $request->variant_id)
+        ->where('customer_id', $request->customer_id)
+        ->first();
+
+        if($variant === null){
+            $datas = Cart::create($data);
+        }
+        else {
+            Cart::where('variant_id', $request->variant_id)
+            ->where('customer_id', $request->customer_id)
+            ->update($data);
+
+            $datas = Cart::where('variant_id', $request->variant_id)
+            ->where('customer_id', $request->customer_id)
+            ->first();
+        }
+
+
 
         DB::commit();
 
