@@ -8,6 +8,7 @@ use App\GeneralLedgerDetail;
 use App\Transaction;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Stock;
 use App\TransactionDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -175,7 +176,7 @@ class SalesController extends Controller
             'status' => 'CENCEL'
         ]);
 
-        $datas = Transaction::whereId($id)->get();
+        $datas = Transaction::whereId($id)->first();
 
         $data = TransactionDetail::where('trx_id', $id)->get();
 
@@ -185,8 +186,9 @@ class SalesController extends Controller
             $stock = [
                 'variant_id' => $value['variant_id'],
                 'stock_in' => $value['qty'],
-                'remark' => 'Stock bertambah sebesar '.' '.$value['qty'].' '.'karena pesanan dibatalkan dengan kode'.' '.$datas['order_no']
+                'remark' => 'Stock bertambah sebesar '.' '.$value['qty'].' '.'karena pesanan dibatalkan dengan kode'.' '.$datas->order_no
             ];
+            Stock::create($stock);
         }
 
         return response()->json([

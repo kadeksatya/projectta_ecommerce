@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['sales'] = Transaction::sum('grand_total');
+        $data['sales'] = Transaction::where('status', 'COMPLETED')->sum('grand_total');
         $data['best'] = Product::where('checkout_time', '>', 1)->count();
         $data['product'] = Product::all()->count();
         $data['products'] = Product::orderBy('checkout_time', 'DESC')->with('category')->limit(10)->get();
