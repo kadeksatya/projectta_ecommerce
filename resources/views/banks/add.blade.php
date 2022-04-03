@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-md-5">
                     <label for="">Photo</label>
-                    <input type="file" name="photo" class="dropify" />
+                    <input type="file" name="photo" data-default-file="/img/default.png" class="dropify" />
                 </div>
             </div>
 

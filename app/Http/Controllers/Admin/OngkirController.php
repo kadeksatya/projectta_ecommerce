@@ -43,6 +43,7 @@ class OngkirController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'value' => 'required',
+            'remark' => 'required',
 
         ]);
 
@@ -56,6 +57,7 @@ class OngkirController extends Controller
             $data = [
                 'name' => $request->name,
                 'value' => $request->value,
+                'remark' => $request->remark,
             ];
 
             Ongkir::create($data);
@@ -111,6 +113,7 @@ class OngkirController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'value' => 'required',
+            'remark' => 'required',
 
         ]);
 
@@ -119,6 +122,7 @@ class OngkirController extends Controller
             $data = [
                 'name' => $request->name,
                 'value' => $request->value,
+                'remark' => $request->remark,
             ];
 
             Ongkir::where('id', $id)->update($data);
@@ -147,7 +151,7 @@ class OngkirController extends Controller
         Ongkir::destroy($id);
 
         return response()->json([
-            "message" => "Kategori berhasil dihapus."
+            "message" => "Ongkir berhasil dihapus."
         ]);
     }
 }

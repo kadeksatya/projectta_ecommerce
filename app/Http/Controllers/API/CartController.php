@@ -12,7 +12,7 @@ class CartController extends Controller
 
     public function index($customer_id)
     {
-        $datas = Cart::where('customer_id', $customer_id)->get();
+        $datas = Cart::where('customer_id', $customer_id)->with(['variant','product'])->get();
 
         DB::commit();
 

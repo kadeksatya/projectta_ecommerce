@@ -23,7 +23,7 @@ class CreateCartsTable extends Migration
             $table->integer('sales_price')->nullable();
             $table->softDeletes();
             $table->timestamps();
-        });
+        }); 
     }
     /**
      * Reverse the migrations.

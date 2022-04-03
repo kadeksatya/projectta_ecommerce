@@ -34,7 +34,7 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>
-                            <img src="{{asset('img')}}/{{$p->photo ?? 'default.png'}}" alt="" srcset="">
+                            <img src="{{$p->photo}}" alt="" srcset="" class="rounded float-left" width="150px">
                         </td>
                         <td>{{$p->name}}</td>
                         <td>{{$p->no_rek}}</td>

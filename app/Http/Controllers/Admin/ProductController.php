@@ -65,7 +65,7 @@ class ProductController extends Controller
 
                 $image = $request->file('photo');
                 $new_name =$name . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('img/');
+                $destinationPath = public_path('img');
                 $img = Image::make($image->getRealPath());
                 $img->resize(400, 400, function ($constraint) {
                     $constraint->aspectRatio();
@@ -74,12 +74,13 @@ class ProductController extends Controller
 
                 $data = [
                     'name' => $request->name,
-                    'photo' => asset('img/').$new_name,
+                    'photo' => asset('img').'/'.$new_name,
                     'category_id' => $request->category_id,
                     'unit_id' => $request->unit_id,
                     'cost_price' => $request->cost_price,
                     'sales_price' => $request->sales_price,
                     'is_active' => $request->is_active ?? 1,
+                    'is_featured' => $request->is_featured ?? 0,
                     'remark' => $request->remark,
                 ];
             }
@@ -92,6 +93,7 @@ class ProductController extends Controller
                     'cost_price' => $request->cost_price,
                     'sales_price' => $request->sales_price,
                     'is_active' => $request->is_active ?? 1,
+                    'is_featured' => $request->is_featured ?? 0,
                     'remark' => $request->remark,
                 ];
             }
@@ -179,7 +181,6 @@ class ProductController extends Controller
 
         try {
 
-            $image_hidden = $request->imagehidden;
             $image = $request->file('photo');
             if($image != '')
             {
@@ -192,18 +193,34 @@ class ProductController extends Controller
                 })->save($destinationPath.'/'.$image_hidden);
                 // File::delete(public_path("assets/backend/img/post/$data->Image"));
 
+                $data = [
+                    'name' => $request->name,
+                    'photo' => asset('img').'/'.$image_hidden,
+                    'category_id' => $request->category_id,
+                    'unit_id' => $request->unit_id,
+                    'cost_price' => $request->cost_price,
+                    'sales_price' => $request->sales_price,
+                    'is_active' => $request->is_active ?? 1,
+                    'is_feature' => $request->is_featured ?? 0,
+                    'remark' => $request->remark,
+                ];
+            }
+            else{
+
+                $data = [
+                    'name' => $request->name,
+                    'photo' => $datas->photo,
+                    'category_id' => $request->category_id,
+                    'unit_id' => $request->unit_id,
+                    'cost_price' => $request->cost_price,
+                    'sales_price' => $request->sales_price,
+                    'is_active' => $request->is_active ?? 1,
+                    'is_feature' => $request->is_featured ?? 0,
+                    'remark' => $request->remark,
+                ];
             }
 
-            $data = [
-                'name' => $request->name,
-                'photo' => asset('img').'/'.$image_hidden ?? $datas->photo,
-                'category_id' => $request->category_id,
-                'unit_id' => $request->unit_id, 
-                'cost_price' => $request->cost_price,
-                'sales_price' => $request->sales_price,
-                'is_active' => $request->is_active ?? 1,
-                'remark' => $request->remark,
-            ];
+
 
             Product::where('id', $id)->update($data);
 

@@ -16,8 +16,6 @@
                         <label>Name</label>
                         <input type="text" class="form-control" name="name" value="{{$product->name}}"
                             placeholder="eg. ani">
-                        <input type="hidden" class="form-control" name="imagehidden" value="{{$product->photo}}"
-                            placeholder="eg. ani">
                     </div>
                     <div class="form-group">
                         <label>Kategori</label>
@@ -57,6 +55,14 @@
                 <div class="col-md-5">
                     <label for="">Photo</label>
                     <input type="file" name="photo" class="dropify" data-default-url="{{$product->photo}}" />
+
+                    <div class="form-group mt-4">
+                        <label for="">Product unggulan  ?</label>
+                        <select name="is_featured" id="" class="form-control">
+                            <option value="0" {{$product->is_feature == 0 ? 'selected':''}}>Tidak</option>
+                            <option value="1" {{$product->is_feature == 1 ? 'selected':''}}>Iya</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="col-md-12">

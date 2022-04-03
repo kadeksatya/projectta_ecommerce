@@ -20,6 +20,10 @@
                         <label>Biaya.</label>
                         <input type="number" name="value" value="{{$ongkir->value}}" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label>Remark.</label>
+                        <textarea name="remark" id="" cols="30" rows="5" class="form-control">{{$ongkir->remark}}</textarea>
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>

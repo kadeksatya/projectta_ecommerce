@@ -47,9 +47,19 @@
                     </div>
 
                 </div>
-                <div class="col-md-5">
-                    <label for="">Photo</label>
-                    <input type="file" name="photo" class="dropify" />
+                <div class="col-md-5 ">
+                    <div class="form-group mb-4">
+                        <label for="">Photo</label>
+                        <input type="file" name="photo" class="dropify" />
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="">Product unggulan  ?</label>
+                        <select name="is_featured" id="" class="form-control">
+                            <option value="0" selected>Tidak</option>
+                            <option value="1">Iya</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -58,7 +68,7 @@
 
                 <div class="boxer row form-inline" >
                     <div class='element form-group col-md-7 m-2 p-2' id='div_1'>
-                        <input type='text' class='form-control inputs' name='variant[]' placeholder='Enter your skill' id='txt_1' >
+                        <input type='text' class='form-control inputs' name='variant[]' placeholder='Masukkan nama varian' id='txt_1' >
                     </div>
                 </div>
             </div>

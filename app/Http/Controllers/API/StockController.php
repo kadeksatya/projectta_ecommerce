@@ -12,31 +12,15 @@ class StockController extends Controller
     public function getListStock(Request $request)
     {
         try{
+        $stocks = $request->stock;
+        $collection = collect($stocks);
+        $datas = $collection->implode('variant_id',',');
+        $stock = Variant::with('product')->whereIn('id', explode(',',$datas))->get();
 
-        $data = array(
-            'id' => $request->variant_id,
-            'stock_out' => $request->stock_out
-        );
-
-        $stock = Variant::find($request->variant_id);
-
-        $totals = $stock->stock_total - $request->stock_out;
-
-        if($totals < 0){
-            return response()->json([
-                'message' => 'unavaliable stock !',
-            ], 400);
-        }
-
-        if($data == null){
-
-            return response()->json([
-                'message' => 'stock avaliable !',
-            ]);
-        }
 
         return response()->json([
             'message' => 'data found',
+            'data' => $stock
         ], 200);
 
         } catch (\Exception $e) {

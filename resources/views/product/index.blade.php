@@ -14,6 +14,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Photo</th>
                         <th>Name</th>
                         <th>Category</th>
                         <th>Unit</th>
@@ -34,6 +35,9 @@
                     @foreach($product as $p)
                     <tr>
                         <td>{{$i++}}</td>
+                        <td>
+                            <img src="{{$p->photo}}" alt="" srcset="" class="rounded float-left" width="150px">
+                        </td>
                         <td>{{$p->name}}</td>
                         <td>{{$p->category->name ?? '-'}}</td>
                         <td>{{$p->unit->name ?? '-'}}</td>

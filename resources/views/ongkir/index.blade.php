@@ -16,6 +16,7 @@
                         <th>#</th>
                         <th>Nama Ongkir</th>
                         <th>Biaya Ongkir</th>
+                        <th>Keterangan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -35,6 +36,7 @@
 
                         <td>{{$p->name}}</td>
                         <td>@currency($p->value)</td>
+                        <td>{{$p->remark}}</td>
                         <td class="">
                             <a href="ongkir/{{$p->id}}/edit/" class="btn btn-primary">Edit</a>
                             <a href="#" data-url="{{route('ongkir.destroy', $p->id)}}" data-label="ongkir" class="btn btn-danger delete">Delete</a>

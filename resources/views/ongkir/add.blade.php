@@ -19,6 +19,10 @@
                         <label>Biaya.</label>
                         <input type="number" name="value" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label>Remark</label>
+                        <textarea name="remark" id="" cols="30" rows="5" class="form-control"></textarea>
+                    </div>
                 </div>
 
             </div>

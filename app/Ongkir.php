@@ -11,8 +11,5 @@ class Ongkir extends Model
 
     protected $table = 'ongkir';
 
-    protected $fillable = [
-        'name',
-        'value',
-    ];
+    protected $guarded = [];
 }

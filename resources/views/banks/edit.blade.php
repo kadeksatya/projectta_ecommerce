@@ -6,8 +6,8 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h4>Tambah Data Bank</h4>
-        <form method="POST" action="/bank/update/" enctype="multipart/form-data">
+        <h4>Update Data Bank</h4>
+        <form method="POST" action="{{route('bank.update',$bank->id)}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @method('PUT')
             <div class="row">
@@ -15,7 +15,6 @@
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" class="form-control" name="name" value="{{$bank->name}}" placeholder="eg. ani">
-                        <input type="hidden" class="form-control" name="imagehidden" value="{{$bank->photo}}" placeholder="eg. ani">
                     </div>
                     <div class="form-group">
                         <label>Harga Beli.</label>
@@ -26,7 +25,7 @@
                 </div>
                 <div class="col-md-5">
                     <label for="">Photo</label>
-                    <input type="file" name="photo" class="dropify" data-default-file="{{asset('img')}}/{{$bank->photo}}" />
+                    <input type="file" name="photo" class="dropify" data-default-file="{{$bank->photo}}" />
                 </div>
             </div>
 

@@ -27,7 +27,15 @@ class Variant extends Model
         return $totals;
     }
 
-
+    /**
+     * Get the product that owns the Variant
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo('App\Product', 'product_id');
+    }
 
 
     /**
