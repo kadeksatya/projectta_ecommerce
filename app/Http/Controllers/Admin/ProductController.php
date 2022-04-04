@@ -80,7 +80,7 @@ class ProductController extends Controller
                     'cost_price' => $request->cost_price,
                     'sales_price' => $request->sales_price,
                     'is_active' => $request->is_active ?? 1,
-                    'is_featured' => $request->is_featured ?? 0,
+                    'is_feature' => $request->is_featured ?? 0,
                     'remark' => $request->remark,
                 ];
             }
@@ -93,7 +93,7 @@ class ProductController extends Controller
                     'cost_price' => $request->cost_price,
                     'sales_price' => $request->sales_price,
                     'is_active' => $request->is_active ?? 1,
-                    'is_featured' => $request->is_featured ?? 0,
+                    'is_feature' => $request->is_featured ?? 0,
                     'remark' => $request->remark,
                 ];
             }
