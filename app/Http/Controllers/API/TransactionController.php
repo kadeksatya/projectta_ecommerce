@@ -117,6 +117,7 @@ class TransactionController extends Controller
 
             $datas = Transaction::with(['bank','ongkir','address','transaction_details.product','transaction_details.variant'])
             ->where('customer_id', $id)
+            ->orderBy('created_at', 'DESC')
             ->get();
 
             return response()->json([
