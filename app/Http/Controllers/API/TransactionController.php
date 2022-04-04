@@ -30,42 +30,20 @@ class TransactionController extends Controller
 
         try {
 
+            $ids = Transaction::create([
+                'order_no' => $order_no,
+                'customer_id' => $request->customer_id,
+                'status' => "PENDING",
+                'payment_status' => null,
+                'ongkir_id'=> $request->ongkir_id,
+                'bank_id'=> $request->bank_id,
+                'grand_total'=> $request->grand_total,
+                'transfer_value'=> $request->transfer_value,
+                'address_id' => $request->address_id,
+                'remark' => $request->remark,
+                'created_at' => $mytime
 
-            if($request->grand_total == $request->transfer_value){
-                $ids = Transaction::insertGetId([
-                    'order_no' => $order_no,
-                    'customer_id' => $request->customer_id,
-                    'status' => "PAID",
-                    'payment_status' => null,
-                    'ongkir_id'=> $request->ongkir_id,
-                    'bank_id'=> $request->bank_id,
-                    'grand_total'=> $request->grand_total,
-                    'transfer_value'=> $request->transfer_value,
-                    'address_id' => $request->address_id,
-                    'remark' => $request->remark,
-                    'created_at' => $mytime
-                ]);
-
-
-            }
-            else {
-                $ids = Transaction::create([
-                    'order_no' => $order_no,
-                    'customer_id' => $request->customer_id,
-                    'status' => "PENDING",
-                    'payment_status' => null,
-                    'ongkir_id'=> $request->ongkir_id,
-                    'bank_id'=> $request->bank_id,
-                    'grand_total'=> $request->grand_total,
-                    'transfer_value'=> $request->transfer_value,
-                    'address_id' => $request->address_id,
-                    'remark' => $request->remark,
-                    'created_at' => $mytime
-
-                ]);
-
-
-            }
+            ]);
 
             $datas = Transaction::where('id', $ids)->first();
             $product_ids = $request->transaction_detail;
