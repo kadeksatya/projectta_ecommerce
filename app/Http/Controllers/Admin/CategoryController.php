@@ -6,7 +6,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Image;
 class CategoryController extends Controller
 {
     /**
@@ -52,9 +52,34 @@ class CategoryController extends Controller
                              ->with('error', 'Nama kategori sudah digunakan.');
             }
 
-            $data = [
-                'name' => $request->name,
-            ];
+            $name = rand(1, 99999) . now()->format('Y-m-d-H-i-s');
+
+            if($request->file('photo')){
+
+                $image = $request->file('photo');
+                $new_name =$name . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('img');
+                $img = Image::make($image->getRealPath());
+                $img->resize(400, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath.'/'.$new_name);
+
+                $data = [
+                    'name' => $request->name,
+                    'photo' => asset('img').'/'.$new_name,
+                ];
+
+            }
+            else
+            {
+                $data = [
+                    'name' => $request->name,
+                    'photo' => asset('img/default.png'),
+                ];
+
+            }
+
+            // dd($data);
 
             Category::create($data);
 
@@ -113,9 +138,27 @@ class CategoryController extends Controller
 
         try {
 
-            $data = [
-                'name' => $request->name,
-            ];
+            $image = $request->file('photo');
+            if($image != '')
+            {
+                $name = rand(1, 99999) . now()->format('Y-m-d-H-i-s');
+                $image_hidden = $name . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('img/');
+                $img = Image::make($image->getRealPath());
+                $img->resize(400, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath.'/'.$image_hidden);
+
+                $data = [
+                    'name' => $request->name,
+                    'photo' => asset('img').'/'.$image_hidden,
+                ];
+            }
+            else{
+                $data = [
+                    'name' => $request->name,
+                ];
+            }
 
             Category::where('id', $id)->update($data);
 

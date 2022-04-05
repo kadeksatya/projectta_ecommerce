@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Category extends Migration
+class CreateVariantPhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class Category extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('category');
-
-        Schema::create('category', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->nullable();
-            $table->string('photo')->nullable();
-            $table->timestamps();
+        Schema::create('variant_photos', function (Blueprint $table) {
+            $table->id();
+            $table->integer('variant_id')->nullable();
+            $table->integer('photo')->nullable();
             $table->softDeletes();
-
+            $table->timestamps();
         });
     }
 
@@ -32,6 +29,6 @@ class Category extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('variant_photos');
     }
 }

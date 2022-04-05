@@ -34,11 +34,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth'])->group(function () {
     Route::resource('admin', 'Admin\UserController');
     Route::resource('category', 'Admin\CategoryController');
-    // Route::resource('variant', 'Admin\VariantController');
+    Route::resource('variant', 'Admin\VariantController');
+    Route::get('/variant/{id}/add', 'Admin\VariantController@create');
     Route::resource('ongkir', 'Admin\OngkirController');
     Route::resource('bank', 'Admin\BankController');
     Route::resource('unit', 'Admin\UnitController');
+
     Route::resource('product', 'Admin\ProductController');
+    Route::get('product/{id}/detail', 'Admin\ProductController@show');
+
+
     Route::resource('customer', 'Admin\CustomerController');
     Route::resource('sales', 'Admin\SalesController');
     Route::resource('stock', 'Admin\StockController');

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Product;
 use App\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Image;
 
 class VariantController extends Controller
 {
@@ -25,9 +27,10 @@ class VariantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('variant.add');
+        $data['product'] = Product::whereId($id)->first();
+        return view('variant.add', $data);
     }
 
     /**
@@ -52,15 +55,40 @@ class VariantController extends Controller
                              ->with('error', 'Nama varian sudah digunakan.');
             }
 
-            $data = [
-                'name' => $request->name,
-            ];
+            $name = rand(1, 99999) . now()->format('Y-m-d-H-i-s');
 
-            Variant::create($data);
+            if($request->file('photo')){
+
+                $image = $request->file('photo');
+                $new_name =$name . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('img');
+                $img = Image::make($image->getRealPath());
+                $img->resize(400, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath.'/'.$new_name);
+
+                $data = [
+                    'product_id' => $request->product_id,
+                    'name' => $request->name,
+                    'photo' => asset('img').'/'.$new_name
+                ];
+
+                Variant::create($data);
+            }
+            else{
+                $data = [
+                    'product_id' => $request->product_id,
+                    'name' => $request->name,
+                    'photo' => asset('img/default.png')
+                ];
+
+                Variant::create($data);
+            }
+
 
             DB::commit();
 
-            return redirect()->route('variant.index')
+            return redirect('product/'. $request->product_id .'/detail')
                              ->with('success', 'Varian berhasil dibuat.');
         } catch (\Exception $e) {
             DB::rollback();
@@ -113,16 +141,39 @@ class VariantController extends Controller
 
         try {
 
-            $data = [
-                'name' => $request->name,
-            ];
+            $name = rand(1, 99999) . now()->format('Y-m-d-H-i-s');
+            $image = $request->file('photo');
 
-            Variant::where('id', $id)->update($data);
+            if($image != ''){
+
+                $new_name =$name . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('img');
+                $img = Image::make($image->getRealPath());
+                $img->resize(400, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath.'/'.$new_name);
+
+                $data = [
+                    'name' => $request->name,
+                    'photo' => asset('img').'/'.$new_name
+                ];
+
+                Variant::where('id', $id)->update($data);
+            }
+            else{
+                $data = [
+                    'name' => $request->name,
+                ];
+
+                Variant::where('id', $id)->update($data);
+            }
+
+
 
             DB::commit();
 
-            return redirect()->route('variant.index')
-                             ->with('success', 'Variant berhasil diubah.');
+            return redirect('product/'. $request->product_id .'/detail')
+                             ->with('success', 'Varian berhasil diubah.');
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->withErrors([$e->getMessage() . " at line " . $e->getLine()]);

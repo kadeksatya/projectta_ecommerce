@@ -13,6 +13,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Image</th>
                         <th>Nama Variant</th>
                         <th>Jumlah Stok</th>
                         <th>Action</th>
@@ -31,11 +32,22 @@
                     @foreach($variant as $p)
                     <tr>
                         <td>{{$i++}}</td>
+                        <td>
+                            <img src="{{$p->photo}}" alt="" srcset="" class="rounded float-left" width="150px">
+                        </td>
 
                         <td>{{$p->name}}</td>
                         <td class="text-success">{{$p->stock_total ?? 0}}</td>
                         <td>
-                            <a href="/stock/{{$p->id}}/create" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Stock</a>
+                            <div class="dropdown dropdown-animated">
+
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <i class="anticon anticon-setting"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="/stock/{{$p->id}}/create" class="dropdown-item">Tambah Stock</a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
 

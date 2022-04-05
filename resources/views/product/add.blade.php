@@ -62,16 +62,22 @@
                     </div>
                 </div>
             </div>
+            {{-- <div class="col-md-12">
 
-            <div class="col-md-12">
-                <button class='add btn btn-success ml-2' type="button"><i class="fa fa-plus"></i> Tambah Varian</button>
-
-                <div class="boxer row form-inline" >
-                    <div class='element form-group col-md-7 m-2 p-2' id='div_1'>
-                        <input type='text' class='form-control inputs' name='variant[]' placeholder='Masukkan nama varian' id='txt_1' >
+                <div class="boxer row" >
+                    <div class='element form-group col-md-4' id='div_1'>
+                        <input type='file' name='images[]' class='dropify' />
+                        <input type='text' class='form-control inputs mt-2 mb-2' name='variant[]' placeholder='Masukkan nama varian' id='txt_1' >
                     </div>
                 </div>
+
+
             </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button class='add btn btn-success ml-2' type="button"><i class="fa fa-plus"></i> Tambah Varian</button>
+                </div>
+            </div> --}}
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -84,8 +90,15 @@
 <script>
 $(document).ready(function(){
 
+function loadImages() {
+    $('.dropifyVariant').dropify()
+
+}
 // Add new element
 $(".add").click(function(){
+
+
+
 
     // Finding total number of elements added
     var total_element = $(".element").length;
@@ -98,14 +111,16 @@ $(".add").click(function(){
     var max = 5;
     // Check total number elements
     if(total_element < max ){
+
         // Adding new div container after last occurance of element class
-        $(".element:last").after("<div class='element form-group col-md-7 m-2 p-2' id='div_"+ nextindex +"'></div>");
+        $(".element:last").after("<div class='element form-group col-md-4' id='div_"+ nextindex +"'></div>");
 
         // Adding element to <div>
-        $("#div_" + nextindex).append("<input type='text' name='variant[]' class='form-control' placeholder='Masukkan nama varian' id='txt_"+ nextindex +"'>&nbsp;<button id='remove_" + nextindex + "' class='remove btn btn-danger'><i class='fa fa-trash'></i> Hapus Data</button>");
+        $("#div_" + nextindex).append("<input type='file' name='images[]' class='dropifyVariant' /><input type='text' name='variant[]' class='form-control mt-2 mb-2' placeholder='Masukkan nama varian' id='txt_"+ nextindex +"'>&nbsp;<button id='remove_" + nextindex + "' class='remove btn btn-danger'><i class='fa fa-trash'></i> Hapus Data</button>");
 
     }
 
+    loadImages();
 });
 
 // Remove element

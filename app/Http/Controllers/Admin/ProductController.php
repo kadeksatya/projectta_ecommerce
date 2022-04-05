@@ -7,6 +7,7 @@ use App\Product;
 use App\Http\Controllers\Controller;
 use App\Unit;
 use App\Variant;
+use App\VariantPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Image;
@@ -103,16 +104,37 @@ class ProductController extends Controller
                              ->with('error', 'Nama product sudah digunakan.');
             }
 
-           $product = Product::create($data);
+           Product::create($data);
+        //    $product = Product::create($data);
 
-            for ($i=0; $i < count($request->variant); $i++) {
-                $data =[
-                    'product_id' => $product->id,
-                    'name' => $request->variant[$i]
-                ];
 
-                Variant::create($data);
-            }
+            // for ($i=0; $i < count($request->variant); $i++) {
+
+
+            //     if($request->file('images')){
+
+
+            //             $new_name = rand(1, 999999) . '.' . $image->getClientOriginalExtension();
+            //             $destinationPath = public_path('img');
+            //             $img = Image::make($image->getRealPath());
+            //             $img->resize(400, 400, function ($constraint) {
+            //                 $constraint->aspectRatio();
+            //             })->save($destinationPath.'/'.$new_name);
+
+
+            //         $data =[
+            //             'product_id' => $product->id,
+            //             'name' => $request->variant[$i],
+            //             'photo' => $new_name
+
+            //         ];
+            //         Variant::create($data);
+
+            //     }
+
+            // }
+
+
 
             DB::commit();
 
@@ -135,8 +157,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $data['product'] = Product::with(['category','unit'])->find($id);
-        return view('admin.product.show', $data);
+        $data['product'] = Product::find($id);
+        $data['variant'] = Variant::where('product_id', $id)->get();
+        return view('variant.index', $data);
     }
 
     /**
@@ -224,16 +247,16 @@ class ProductController extends Controller
 
             Product::where('id', $id)->update($data);
 
-            Variant::where('product_id', $id)->delete();
+            // Variant::where('product_id', $id)->delete();
 
-            for ($i=0; $i < count($request->variant); $i++) {
-                $data =[
-                    'product_id' => $id,
-                    'name' => $request->variant[$i]
-                ];
+            // for ($i=0; $i < count($request->variant); $i++) {
+            //     $data =[
+            //         'product_id' => $id,
+            //         'name' => $request->variant[$i]
+            //     ];
 
-                Variant::create($data);
-            }
+            //     Variant::create($data);
+            // }
 
             DB::commit();
 

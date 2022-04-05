@@ -20,6 +20,7 @@ class Varian extends Migration
             $table->integer('product_id')->nullable();
             $table->integer('stock_id')->nullable();
             $table->string('name')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -14,6 +14,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <td>Photo</td>
                         <th>Name</th>
                         <th>Action</th>
                     </tr>
@@ -24,13 +25,16 @@
                     @endphp
                     @if ($category->count()==0)
                     <tr>
-                        <td colspan="3" class="text-center">Tidak Ada Data!</td>
+                        <td colspan="4" class="text-center">Tidak Ada Data!</td>
                         </td>
                     </tr>
                     @else
                     @foreach($category as $c)
                     <tr>
                         <td>{{$i++}}</td>
+                        <td>
+                            <img src="{{$c->photo}}" alt="" srcset="" class="rounded float-left" width="150px">
+                        </td>
                         <td>{{$c->name}}</td>
                         <td class="">
                             <a href="category/{{$c->id}}/edit/" class="btn btn-primary">Edit</a>

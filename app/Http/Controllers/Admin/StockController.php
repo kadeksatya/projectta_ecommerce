@@ -99,7 +99,9 @@ class StockController extends Controller
      */
     public function show($id)
     {
+
         $data['variant'] = Variant::with('stocks')->where('product_id', $id)->get();
+        $data['product'] = Product::whereId($id)->first();
         return view('stock.show', $data);
     }
 
