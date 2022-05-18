@@ -161,7 +161,10 @@ class SalesController extends Controller
         $data = TransactionDetail::where('trx_id', $id)->get();
 
         foreach ($data as $key => $value) {
-            Product::whereId($value['product_id'])->increment('checkout_time');
+
+            $product =  Product::whereId($value['product_id'])->first();
+            $checkouted = $product->checkout_time + $value['qty'];
+            Product::whereId($value['product_id'])->update(['checkout_time'=> $checkouted]);
         }
 
         return response()->json([

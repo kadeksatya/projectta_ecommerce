@@ -6,7 +6,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h4>Tambah Data Ongkir</h4>
+        <h4>Edit Data Ongkir</h4>
         <form method="POST" action="{{route('ongkir.update', $ongkir->id)}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @method('PUT')

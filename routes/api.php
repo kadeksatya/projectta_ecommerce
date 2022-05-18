@@ -64,3 +64,4 @@ Route::put('v1/update/{id}','API\CartController@update')->middleware('jwt.verify
 Route::delete('v1/delete/{id}','API\CartController@destroy')->middleware('jwt.verify');
 
 
+Route::post('v1/payment','API\PaymentController@upload')->middleware('jwt.verify');

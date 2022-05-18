@@ -6,7 +6,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h4>Tambah Data Category</h4>
+        <h4>Edit Data Category</h4>
         <form method="POST" action="{{route('category.update', $category->id)}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @method('PUT')

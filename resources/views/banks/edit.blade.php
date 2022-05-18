@@ -6,7 +6,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h4>Update Data Bank</h4>
+        <h4>Edit Data Bank</h4>
         <form method="POST" action="{{route('bank.update',$bank->id)}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @method('PUT')

@@ -30,7 +30,7 @@ class TransactionController extends Controller
 
         try {
 
-            $ids = Transaction::create([
+            $ids = Transaction::insertGetId([
                 'order_no' => $order_no,
                 'customer_id' => $request->customer_id,
                 'status' => "PENDING",
@@ -115,7 +115,7 @@ class TransactionController extends Controller
     {
         try {
 
-            $datas = Transaction::with(['bank','ongkir','address','transaction_details.product','transaction_details.variant'])
+            $datas = Transaction::with(['bank','ongkir','address','transaction_details.product','transaction_details.variant','payments'])
             ->where('customer_id', $id)
             ->orderBy('created_at', 'DESC')
             ->get();

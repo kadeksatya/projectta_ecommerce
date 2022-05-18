@@ -82,4 +82,14 @@ class Transaction extends Model
         return $this->hasMany('App\TransactionDetail', 'trx_id');
     }
 
+        /**
+     * Get all of the trancation_details for the Transaction
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments(): HasMany
+    {
+        return $this->hasMany('App\Payment', 'transaction_id');
+    }
+
 }

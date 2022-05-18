@@ -41,11 +41,11 @@
                                     </tr>
                                     <tr>
                                         <td>Alamat:</td>
-                                        <td> {{$order->address->address}}</td>
+                                        <td> {{$order->address->address ?? '-'}}</td>
                                     </tr>
                                     <tr>
                                         <td>No Tlpn:</td>
-                                        <td>{{$order->customer->phone_number}}</td>
+                                        <td>{{$order->customer->phone_number ?? '-'}}</td>
                                     </tr>
                                     <tr>
                                         <td>Nama Penerima:</td>
