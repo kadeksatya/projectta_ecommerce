@@ -141,7 +141,7 @@
                     <div class="card-body">
                         {{$order->payments}}
                         <img src="{{$order->payments->image ?? asset('img/default.png')}}" class="rounded float-left" width="40%" alt="" srcset="">
-                        <img src="{{ asset($order->payments->image ?? 'img/default.png')}}" class="rounded float-left" width="40%" alt="" srcset="">
+                        <img src="{{ asset('img')}}/{{$order->payments->image ?? 'default.png'}}" class="rounded float-left" width="40%" alt="" srcset="">
 
                     </div>
                     <div class="card-footer">
