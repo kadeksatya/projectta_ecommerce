@@ -80,7 +80,7 @@
                                             @foreach ($order->transaction_details as $key => $item)
                                             <div class="card">
                                                 <center>
-                                              <img class="card-img-top" src="{{$item->product->photo}}" width="120px" alt="Card image cap">
+                                              <img class="card-img-top" src="{{$item->product->photo ?? asset('img/default.png')}}" width="120px" alt="Card image cap">
 
                                                 </center>
                                               <div class="card-body">
