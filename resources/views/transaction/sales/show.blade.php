@@ -120,7 +120,7 @@
                                     <tr>
                                         <td>
 
-                                            <img src="{{$order->bank->photo}}" class="rounded float-left" width="40%" alt="" srcset="">
+                                            <img src="{{$order->bank->photo ?? asset('img/default.png')}}" class="rounded float-left" width="40%" alt="" srcset="">
                                         </td>
                                     </tr>
                                     <tr>
