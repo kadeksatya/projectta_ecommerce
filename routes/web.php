@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::resource('customer', 'Admin\CustomerController');
+    Route::get('/sales/report', 'Admin\SalesController@report')->name('sales.report');
+    Route::get('/sales/print', 'Admin\SalesController@print')->name('sales.print');
     Route::resource('sales', 'Admin\SalesController');
     Route::resource('stock', 'Admin\StockController');
     Route::get('/stock/{id}/detail', 'Admin\StockController@show');
@@ -52,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/user', 'Admin\UserController');
     Route::put('/order/process/{id}','Admin\SalesController@procces');
     Route::put('/order/pending/{id}','Admin\SalesController@pending');
+    Route::put('/order/accept/{id}','Admin\SalesController@payment_accept');
+    Route::put('/order/reject/{id}','Admin\SalesController@payment_reject');
     Route::put('/order/send/{id}','Admin\SalesController@send');
     Route::put('/order/resi/{id}','Admin\SalesController@updateResi');
     Route::put('/order/complete/{id}','Admin\SalesController@complete');

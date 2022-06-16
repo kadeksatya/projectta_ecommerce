@@ -66,9 +66,11 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <a href="{{route('sales.show', $t->id)}}" class="dropdown-item">Detail Order</a>
-                                    @if ($t->status == 'PENDING')
+                                    @if ($t->status == 'PAYMENT_WAITING_CONFIRM')
                                     <a href="javascript:void(0)" data-url="/order/pending/{{$t->id}}"
-                                        data-id="{{$t->id}}" class="dropdown-item updateStatus">Proses Pembayaran</a>
+                                        data-id="{{$t->id}}" class="dropdown-item updateStatus">Terima Pembayaran</a>
+                                    <a href="javascript:void(0)" data-url="/order/pending/{{$t->id}}"
+                                        data-id="{{$t->id}}" class="dropdown-item updateStatus">Tolak Pembayaran</a>
                                     @endif
                                     @if ($t->status == 'PAID')
                                     <a href="javascript:void(0)" data-url="/order/process/{{$t->id}}"

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Payment;
+use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Image;
@@ -33,9 +34,13 @@ class PaymentController extends Controller
             if($datas == null){
                 $data = array (
                     'transaction_id' => $request->transaction_id,
-                    'image' => $new_name,
+                    'image' => asset('img').'/'.$new_name,
                 );
                 Payment::create($data);
+
+                Transaction::whereId($request->transaction_id)->update([
+                    'status' => 'PAYMENT_WAITING_CONFIRM',
+                ]);
             }
             else {
                 $data = array (
@@ -43,6 +48,10 @@ class PaymentController extends Controller
                     'image' => asset('img').'/'.$new_name,
                 );
                 Payment::where('transaction_id', $request->transaction_id)->update($data);
+
+                Transaction::whereId($request->transaction_id)->update([
+                    'status' => 'PAYMENT_WAITING_CONFIRM',
+                ]);
             }
 
 

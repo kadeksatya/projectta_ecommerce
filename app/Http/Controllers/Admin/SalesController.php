@@ -30,7 +30,30 @@ class SalesController extends Controller
         // dd($data['totals']);
         return view('transaction.sales.index', $data);
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function report()
+    {
+        return view('report.sales.index');
+    }
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function print(Request $request)
+    {
+        $value = $request->status;
+        $from = $request->from;
+        $to = $request->to;
 
+        $data['transaction'] = Transaction::where('status', $value)->with(['customer'])->whereBetween('created_at', [$from, $to])->get();
+        $pdf = PDF::loadview('report.sales', $data);
+    	return $pdf->stream();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -140,6 +163,28 @@ class SalesController extends Controller
 
     }
 
+    public function payment_accpet(Request $request, $id)
+    {
+        Transaction::whereId($id)->update([
+            'status' => 'PAYMENT_ACCEPT',
+        ]);
+        return response()->json([
+            'message' => 'Pembayaran berhasil diterima'
+        ]);
+
+    }
+
+    public function payment_reject(Request $request, $id)
+    {
+        Transaction::whereId($id)->update([
+            'status' => 'PAYMENT_REJECT',
+        ]);
+        return response()->json([
+            'message' => 'Pembayaran Berhasil ditolak'
+        ]);
+
+    }
+
     public function updateResi(Request $request, $id)
     {
         Transaction::whereId($id)->update([
@@ -176,7 +221,7 @@ class SalesController extends Controller
     public function cencel($id)
     {
         Transaction::whereId($id)->update([
-            'status' => 'CENCEL'
+            'status' => 'CANCEL'
         ]);
 
         $datas = Transaction::whereId($id)->first();

@@ -79,6 +79,26 @@
                     <li>
                         <a href="{{route('sales.index')}}">Penjualan</a>
                     </li>
+                    <li>
+                        <a href="{{route('sales.index')}}">Report</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-file"></i>
+                    </span>
+                    <span class="title">Report</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{route('sales.report')}}">Penjualan</a>
+                    </li>
                 </ul>
             </li>
 
