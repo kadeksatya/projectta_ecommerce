@@ -32,12 +32,12 @@
             <table id="data-table" class="table">
                 <thead>
                     <tr>
+                        <th>Action</th>
                         <th>Order No</th>
                         <th>Customer Name</th>
                         <th>Status Order</th>
                         <th>Order Date</th>
                         <th>Grand Total</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,13 +50,6 @@
                     @else
                     @foreach($transaction as $t)
                     <tr>
-                        <td>{{$t->order_no}}</td>
-                        <td>{{$t->customer->name}}</td>
-                        <td>
-                            {{$t->status}}
-                        </td>
-                        <td>{{\Carbon\Carbon::parse($t->created_at)->diffForHumans()}}</td>
-                        <td>@currency($t->grand_total)</td>
                         <td class="">
 
                             <div class="dropdown dropdown-animated">
@@ -67,12 +60,12 @@
                                 <div class="dropdown-menu">
                                     <a href="{{route('sales.show', $t->id)}}" class="dropdown-item">Detail Order</a>
                                     @if ($t->status == 'PAYMENT_WAITING_CONFIRM')
-                                    <a href="javascript:void(0)" data-url="/order/pending/{{$t->id}}"
+                                    <a href="javascript:void(0)" data-url="/order/accept/{{$t->id}}"
                                         data-id="{{$t->id}}" class="dropdown-item updateStatus">Terima Pembayaran</a>
-                                    <a href="javascript:void(0)" data-url="/order/pending/{{$t->id}}"
+                                    <a href="javascript:void(0)" data-url="/order/reject/{{$t->id}}"
                                         data-id="{{$t->id}}" class="dropdown-item updateStatus">Tolak Pembayaran</a>
                                     @endif
-                                    @if ($t->status == 'PAID')
+                                    @if ($t->status == 'PAYMENT_ACCEPT')
                                     <a href="javascript:void(0)" data-url="/order/process/{{$t->id}}"
                                         data-id="{{$t->id}}" class="dropdown-item updateStatus">Process Order</a>
                                     @endif
@@ -88,7 +81,7 @@
                                     <a href="javascript:void(0)" data-url="/order/resi/{{$t->id}}" data-status="UPDATE_RESI"
                                         data-id="{{$t->id}}" data-resi="{{$t->resi_no}}" class="dropdown-item updateStatus">Update Resi</a>
                                     @endif
-                                    @if ($t->status == 'PENDING' || $t->status == 'PAID')
+                                    @if ($t->status == 'PAYMENT_WAITING_CONFIRM' || $t->status == 'PAYMENT_ACCEPT')
                                     <a href="javascript:void(0)" data-url="/order/cencel/{{$t->id}}"
                                         data-id="{{$t->id}}" class="dropdown-item updateStatus">Batalkan Order</a>
                                         <a href="#" data-url="{{route('sales.destroy', $t->id)}}" data-label="penjualan"
@@ -99,6 +92,14 @@
                             </div>
 
                         </td>
+                        <td>{{$t->order_no}}</td>
+                        <td>{{$t->customer->name}}</td>
+                        <td>
+                            {{$t->status}}
+                        </td>
+                        <td>{{\Carbon\Carbon::parse($t->created_at)->diffForHumans()}}</td>
+                        <td>@currency($t->grand_total)</td>
+
                     </tr>
 
                     @endforeach

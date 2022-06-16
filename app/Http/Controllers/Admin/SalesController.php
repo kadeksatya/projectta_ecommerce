@@ -163,7 +163,7 @@ class SalesController extends Controller
 
     }
 
-    public function payment_accpet(Request $request, $id)
+    public function payment_accept(Request $request, $id)
     {
         Transaction::whereId($id)->update([
             'status' => 'PAYMENT_ACCEPT',

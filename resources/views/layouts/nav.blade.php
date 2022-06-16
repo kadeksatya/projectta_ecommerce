@@ -79,9 +79,6 @@
                     <li>
                         <a href="{{route('sales.index')}}">Penjualan</a>
                     </li>
-                    <li>
-                        <a href="{{route('sales.index')}}">Report</a>
-                    </li>
                 </ul>
             </li>
 
