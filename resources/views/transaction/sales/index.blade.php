@@ -81,7 +81,7 @@
                                     <a href="javascript:void(0)" data-url="/order/resi/{{$t->id}}" data-status="UPDATE_RESI"
                                         data-id="{{$t->id}}" data-resi="{{$t->resi_no}}" class="dropdown-item updateStatus">Update Resi</a>
                                     @endif
-                                    @if ($t->status == 'PAYMENT_WAITING_CONFIRM' || $t->status == 'PAYMENT_ACCEPT')
+                                    @if ($t->status == 'PAYMENT_WAITING_CONFIRM' || $t->status == 'PAYMENT_ACCEPT' || $t->status == 'PAYMENT_REJECT')
                                     <a href="javascript:void(0)" data-url="/order/cencel/{{$t->id}}"
                                         data-id="{{$t->id}}" class="dropdown-item updateStatus">Batalkan Order</a>
                                         <a href="#" data-url="{{route('sales.destroy', $t->id)}}" data-label="penjualan"
