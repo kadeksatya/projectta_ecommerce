@@ -55,6 +55,13 @@
                                         <td>Nama Jasa Pengiriman:</td>
                                         <td>{{$order->ongkir->name ?? '-'}}</td>
                                     </tr>
+                                    @if ($order->resi_no != null)
+                                    <tr>
+                                        <td>Nomor Resi:</td>
+                                        <td>{{$order->resi_no}}</td>
+                                    </tr>
+                                    @endif
+
                                     <tr>
                                         <td>Ongkir:</td>
                                         <td>@currency($order->ongkir->value ?? 0)</td>

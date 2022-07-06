@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <hr>
                     <button class='add btn btn-success ml-2' type="button"><i class="fa fa-plus"></i> Tambah
                         Varian</button>
@@ -89,7 +89,7 @@
                         @endforeach
 
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
