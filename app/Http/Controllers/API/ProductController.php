@@ -15,6 +15,24 @@ class ProductController extends Controller
             $data = Product::where('name', 'LIKE', '%'.$request->product.'%')
             ->get();
         }
+
+        if($request->product === 'new'){
+            $data = Product::orderBy('created_at','DESC')->get();
+        }
+
+        if($request->product === 'lowprice'){
+            $data = Product::orderBy('sales_price','ASC')->get();
+
+        }
+        if($request->product === 'lowprice'){
+            $data = Product::orderBy('sales_price','ASC')->get();
+
+        }
+
+        if($request->product === 'highpriority'){
+            $data = Product::orderBy('checkout_time','DESC')->get();
+        }
+
         else{
             $data = Product::all();
 
@@ -23,6 +41,9 @@ class ProductController extends Controller
             'message' => 'data found',
             'data' => $data
         ], 200);
+
+
+
     }
 
 

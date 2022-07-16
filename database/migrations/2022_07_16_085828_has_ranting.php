@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVariantPhotosTable extends Migration
+class HasRanting extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateVariantPhotosTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('variant_photos');
-
-        Schema::create('variant_photos', function (Blueprint $table) {
+        Schema::create('has_ratings', function (Blueprint $table) {
             $table->id();
-            $table->integer('variant_id')->nullable();
-            $table->integer('photo')->nullable();
+            $table->integer('product_id')->nullable();
+            $table->integer('rating_id')->nullable();
+            $table->integer('customer_id')->nullable();
+            $table->boolean('is_reviewed')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ class CreateVariantPhotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('variant_photos');
+        Schema::dropIfExists('has_ratings');
     }
 }

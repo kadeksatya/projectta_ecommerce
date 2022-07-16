@@ -13,6 +13,8 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('payments');
+
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('transaction_id')->nullable();

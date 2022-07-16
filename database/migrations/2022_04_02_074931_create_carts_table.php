@@ -13,6 +13,8 @@ class CreateCartsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('carts');
+
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id')->nullable();
@@ -23,7 +25,7 @@ class CreateCartsTable extends Migration
             $table->integer('sales_price')->nullable();
             $table->softDeletes();
             $table->timestamps();
-        }); 
+        });
     }
     /**
      * Reverse the migrations.
