@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('unit', 'Admin\UnitController');
 
     Route::resource('product', 'Admin\ProductController');
+    Route::resource('rating', 'Admin\RatingsController');
     Route::get('product/{id}/detail', 'Admin\ProductController@show');
 
 

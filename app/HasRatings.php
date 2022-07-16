@@ -20,4 +20,12 @@ class HasRatings extends Model
     {
         return $this->hasMany('App\Rating', 'id','rating_id');
     }
+    public function productsRating(): HasMany
+    {
+        return $this->hasMany('App\Product', 'id','product_id');
+    }
+    public function userCustomerRatings(): HasMany
+    {
+        return $this->hasMany('App\Product', 'id','customer_id');
+    }
 }
