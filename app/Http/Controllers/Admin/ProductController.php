@@ -176,7 +176,7 @@ class ProductController extends Controller
         $nilai= Rating::where('product_id', $id)->sum('rating');
         $jumlah= Rating::where('product_id', $id)->count();
 
-        $total = $nilai / $jumlah ;
+        $total = $nilai ?? 1 / $jumlah ?? 1;
         $data['avg_rating'] = round($total, 2);
         return view('product.rating', $data);
     }
