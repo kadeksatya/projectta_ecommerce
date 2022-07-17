@@ -20,7 +20,7 @@ Route::post('v1/login','API\AuthController@login');
 Route::get('v1/logout','API\AuthController@logout');
 
 Route::post('v1/register','API\AuthController@register');
-Route::post('v1/rating','API\RatingController@store')->middleware('jwt.verify');;
+Route::post('v1/rating','API\RatingController@store')->middleware('jwt.verify');
 
 Route::get('v1/profile','API\AuthController@profile')->middleware('jwt.verify');
 Route::get('v1/category/list','API\CategoryController@getListCategory')->middleware('jwt.verify');
