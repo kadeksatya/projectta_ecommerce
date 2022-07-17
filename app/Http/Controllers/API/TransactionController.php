@@ -93,7 +93,7 @@ class TransactionController extends Controller
     {
         try {
 
-            $datas = Transaction::with(['bank','ongkir','address','transaction_details.product','transaction_details.variant','transaction_details.product.ratings.detailRatings'])
+            $datas = Transaction::with(['bank','ongkir','address','transaction_details.product','transaction_details.variant','transaction_details.product.ratings.detailRatings','customer'])
             ->where('id', $id)
             ->get();
 

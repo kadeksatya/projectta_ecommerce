@@ -170,11 +170,8 @@ class ProductController extends Controller
      */
     public function rating($id)
     {
-        $data = Product::with(['ratings.detailRatings'])->find($id);
-
-        $query = $data;
-        $query->toArray();
-        return view('product.rating', compact('query'));
+        $data['product'] = Product::find($id);
+        return view('product.rating', $data);
     }
 
     /**
