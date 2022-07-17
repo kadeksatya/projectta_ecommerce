@@ -65,31 +65,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <hr>
-                    <button class='add btn btn-success ml-2' type="button"><i class="fa fa-plus"></i> Tambah
-                        Varian</button>
-
-                    <div class="boxer row form-inline">
-
-                        @php
-                        $num = 0;
-                        @endphp
-
-                        @foreach ($variant as $item)
-
-
-
-                        <div class='element form-group col-md-7 m-2 p-2' id='div_{{$item->id}}'>
-                            <input type='text' class='form-control inputs' name='variant[]' value="{{$item->name}}"
-                                placeholder='Masukkan nama variant' id='txt_{{$item->id}}'>
-                            <button id='remove_{{$item->id}}' type="button" class='remove btn btn-danger ml-2'><i
-                                    class='fa fa-trash'></i> Hapus Data</button>
-                        </div>
-                        @endforeach
-
-                    </div>
-                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
