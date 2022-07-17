@@ -16,6 +16,7 @@ class RatingController extends Controller
             DB::beginTransaction();
 
             $id = new Rating;
+            $id->product_id = $request->product_id;
             $id->description = $request->description;
             $id->rating = $request->rating;
             $id->save();
