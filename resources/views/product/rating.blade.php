@@ -42,13 +42,17 @@
                                     <i class="font-size-40 text-success anticon anticon-smile"></i>
                                     <div class="m-l-15">
                                         <p class="m-b-0 text-muted">Ratings</p>
-
+                                        @if ($avg_rating != 0)
                                         <div class="star-rating m-t-5">
                                             <span class="mt-1">{{$avg_rating}} / 5</span>
                                             <input type="radio" id="star3-5" name="rating-3" value="{{$avg_rating}}"
                                                 checked disabled /><label for="star3-5"
                                                 title="{{$avg_rating}} star"></label>
                                         </div>
+                                        @else
+                                        <span>No review</span>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
