@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\HasRatings;
 use App\Http\Controllers\Controller;
-use App\Product;
 use App\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
