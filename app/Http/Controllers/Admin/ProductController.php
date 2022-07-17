@@ -162,6 +162,21 @@ class ProductController extends Controller
         return view('variant.index', $data);
     }
 
+        /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function rating($id)
+    {
+        $data = Product::with(['ratings.detailRatings'])->find($id);
+
+        $query = $data;
+        $query->toArray();
+        return view('product.rating', compact('query'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

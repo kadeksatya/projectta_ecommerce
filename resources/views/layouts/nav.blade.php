@@ -56,9 +56,7 @@
                     <li>
                         <a href="{{route('product.index')}}">List Produk</a>
                     </li>
-                    <li>
-                        <a href="{{route('rating.index')}}">Rating Produk</a>
-                    </li>
+
                     <li>
                         <a href="{{route('product.create')}}">Tambah Product</a>
                     </li>

@@ -77,7 +77,7 @@ class ProductController extends Controller
 
         Product::whereId($id)->increment('views');
 
-        $data = Product::whereId($id)->with('variant')->first();
+        $data = Product::whereId($id)->with(['variant','unit'])->first();
 
         if(!$data){
 

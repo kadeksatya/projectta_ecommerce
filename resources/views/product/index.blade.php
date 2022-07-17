@@ -51,6 +51,7 @@
                                 <div class="dropdown-menu">
                                     <a href="product/{{$p->id}}/edit/" class="dropdown-item">Edit</a>
                                     <a href="product/{{$p->id}}/detail/" class="dropdown-item">Detail</a>
+                                    <a href="product/{{$p->id}}/rating/" class="dropdown-item">Show Rating Product</a>
                                     <a href="#" data-url="{{route('product.destroy', $p->id)}}" data-label="product" class="dropdown-item delete">Delete</a>
                                 </div>
                             </div>
