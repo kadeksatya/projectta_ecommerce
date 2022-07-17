@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Product;
 use App\Http\Controllers\Controller;
+use App\Rating;
 use App\Unit;
 use App\Variant;
 use App\VariantPhoto;
@@ -170,7 +171,12 @@ class ProductController extends Controller
      */
     public function rating($id)
     {
-        $data['product'] = Product::find($id);
+        $data['product'] = Product::with('category')->find($id);
+        $data['ratings'] = Rating::where('product_id', $id)->get();
+        $nilai= Rating::where('product_id', $id)->sum('rating');
+        $jumlah= Rating::where('product_id', $id)->count();
+
+         $data['avg_rating'] = $nilai / $jumlah ;
         return view('product.rating', $data);
     }
 
