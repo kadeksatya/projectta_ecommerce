@@ -183,7 +183,7 @@ class ProductController extends Controller
         if ( $jumlah === 0){
             $jumlah = 1;
         }
-         return  $total = $nilai / $jumlah;
+        $total = $nilai / $jumlah;
         $data['avg_rating'] = round($total, 2);
         return view('product.rating', $data);
     }
