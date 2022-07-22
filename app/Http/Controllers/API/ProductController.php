@@ -29,7 +29,7 @@ class ProductController extends Controller
 
         }
 
-       if($request->product_type === 'lowprice' || $request->category_id != null){
+       if($request->product_type === 'lowprice' && $request->category_id != null){
             $data = Product::where('category_id', $request->category_id)->orderBy('sales_price','ASC')->get();
             return response()->json([
                 'message' => 'data found',
@@ -37,7 +37,7 @@ class ProductController extends Controller
             ], 200);
 
         }
-        if($request->product_type === 'highprice' || $request->category_id != null){
+        if($request->product_type === 'highprice' && $request->category_id != null){
             $data = Product::where('category_id', $request->category_id)->orderBy('sales_price','DESC')->get();
             return response()->json([
                 'message' => 'data found',
@@ -46,7 +46,7 @@ class ProductController extends Controller
 
         }
 
-        if($request->product_type === 'highpriority' || $request->category_id != null){
+        if($request->product_type === 'highpriority' && $request->category_id != null){
             $data = Product::where('category_id', $request->category_id)->orderBy('checkout_time','DESC')->get();
             return response()->json([
                 'message' => 'data found',
