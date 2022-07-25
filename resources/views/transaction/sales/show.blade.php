@@ -111,7 +111,7 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tempat Pembayaran</h4>
+                        <h4 class="card-title">Bukti Pembayaran</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -120,7 +120,7 @@
                                     <tr>
                                         <td>
 
-                                            <img src="{{$order->bank->photo}}" class="rounded float-left" width="40%" alt="" srcset="">
+                                            <img src="{{$order->payment->photo}}" class="rounded float-left" width="40%" alt="" srcset="">
                                         </td>
                                     </tr>
                                     <tr>
