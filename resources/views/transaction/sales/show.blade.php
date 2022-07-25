@@ -120,7 +120,7 @@
                                     <tr>
                                         <td>
 
-                                            <img src="{{$order->payment->photo}}" class="rounded float-left" width="40%" alt="" srcset="">
+                                            <img src="{{$order->payments->photo}}" class="rounded float-left" width="40%" alt="" srcset="">
                                         </td>
                                     </tr>
                                     <tr>
