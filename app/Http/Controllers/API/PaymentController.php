@@ -33,14 +33,14 @@ class PaymentController extends Controller
             if($datas == null){
                 $data = array (
                     'transaction_id' => $request->transaction_id,
-                    'image' => asset('img').'/'.$new_name,
+                    'image' => asset('img', true).'/'.$new_name,
                 );
                 Payment::create($data);
             }
             else {
                 $data = array (
                     'transaction_id' => $request->transaction_id,
-                    'image' => asset('img').'/'.$new_name,
+                    'image' => asset('img', true).'/'.$new_name,
                 );
                 Payment::where('transaction_id', $request->transaction_id)->update($data);
             }
