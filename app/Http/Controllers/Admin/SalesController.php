@@ -82,7 +82,8 @@ class SalesController extends Controller
      */
     public function show($id)
     {
-        $data['order'] = Transaction::whereId($id)->with(['customer','address','ongkir','bank', 'transaction_details.product','transaction_details.variant','payments'])->first();
+        $data['order'] = Transaction::whereId($id)->with(['customer','address','ongkir','bank', 'transaction_details.product','transaction_details.variant'])->first();
+        $data['payments'] = Transaction::where('transaction_id', $id)->first();
         return view('transaction.sales.show', $data);
     }
 

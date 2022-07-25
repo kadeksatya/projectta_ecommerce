@@ -120,7 +120,7 @@
                                     <tr>
                                         <td>
 
-                                            <img src="{{$order->payments->image ?? 'Not Uploaded Yet'}}" class="rounded float-left" width="40%" alt="" srcset="">
+                                            <img src="{{$payments->image ?? 'Not Uploaded Yet'}}" class="rounded float-left" width="40%" alt="" srcset="">
                                         </td>
                                     </tr>
                                     <tr>
